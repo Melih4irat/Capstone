@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {CardGrid} from "../../components/dashboard/CardGrid";
-export default function dashboard() {
+import {CardGrid} from "../../components/Dashboard/CardGrid";
+export default function Dashboard() {
   return (
     <MainPage>
       <Header>
