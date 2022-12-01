@@ -42,4 +42,5 @@ const ParamCircle = styled.div`
 `;
 const ContainerHeadingThree = styled.h3`
   font-size: 1.3rem;
+  color: #fff;
 `;

@@ -2,9 +2,9 @@ import styled from "styled-components";
 export function ProjectCard() {
   return (
     <CardContainer>
-      <ContainerHeadingTwo>Projects</ContainerHeadingTwo>
+      <HeadingTwo>Projects</HeadingTwo>
       <ParamCircle>
-        <ContainerHeadingThree>0</ContainerHeadingThree>
+        <ParamHeadingThree>0</ParamHeadingThree>
       </ParamCircle>
     </CardContainer>
   );
@@ -23,7 +23,7 @@ const CardContainer = styled.div`
   margin: 2.5%;
 `;
 
-const ContainerHeadingTwo = styled.h2`
+const HeadingTwo = styled.h2`
   font-size: 1rem;
   color: #fff;
   margin-left: 15px;
@@ -40,6 +40,7 @@ const ParamCircle = styled.div`
   bottom: 10px;
   right: 10px;
 `;
-const ContainerHeadingThree = styled.h3`
+const ParamHeadingThree = styled.h3`
   font-size: 1.3rem;
+  color: #fff;
 `;
