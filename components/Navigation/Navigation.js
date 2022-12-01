@@ -89,7 +89,7 @@ const Home = styled(FaHome)`
   font-size: 1.2rem;
   ${props =>
     props.pageState === "dashboard"
-      ? "background-color: rgba(255,165,0, 0.9); color:white;"
+      ? "background-color: rgba(255,165,0, 0.9); color:white; border: 1px solid rgba(255,165,255, 1.0);"
       : " "};
 `;
 const ClipBoard = styled(FaClipboardList)`
@@ -101,7 +101,7 @@ const ClipBoard = styled(FaClipboardList)`
 
   ${props =>
     props.pageState === "projects"
-      ? "background-color: rgba(255,165,0, 0.9); color:white;"
+      ? "background-color: rgba(255,165,0, 0.9); color:white; border: 1px solid rgba(255,165,255, 1.0);"
       : " "};
 `;
 const Calendar = styled(FaCalendarAlt)`
@@ -112,7 +112,7 @@ const Calendar = styled(FaCalendarAlt)`
   font-size: 1.2rem;
   ${props =>
     props.pageState === "calendar"
-      ? "background-color: rgba(255,165,0, 0.9); color:white;"
+      ? "background-color: rgba(255,165,0, 0.9); color:white; border: 1px solid rgba(255,165,255, 1.0);"
       : " "};
 `;
 const Profile = styled(FaUser)`
@@ -123,6 +123,6 @@ const Profile = styled(FaUser)`
   font-size: 1.2rem;
   ${props =>
     props.pageState === "profile"
-      ? "background-color: rgba(255,165,0, 0.9); color:white;"
+      ? "background-color: rgba(255,165,0, 0.9); color:white; border: 1px solid rgba(255,165,255, 1.0);"
       : " "};
 `;
