@@ -10,10 +10,7 @@ const GlobalStyles = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
-    .active {
-        background-color: orange;
-        
-    }
+ 
 `;
 
 export default GlobalStyles;

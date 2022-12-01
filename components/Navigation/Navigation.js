@@ -4,7 +4,7 @@ import {FaHome, FaClipboardList, FaCalendarAlt, FaUser} from "react-icons/fa";
 import {useState} from "react";
 
 export default function Navigation() {
-  const [pageState, setPageState] = useState("profile");
+  const [pageState, setPageState] = useState("dashboard");
   return (
     <Navbar>
       <NavList>

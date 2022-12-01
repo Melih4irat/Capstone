@@ -4,8 +4,9 @@ function MyApp({Component, pageProps}) {
   return (
     <>
       <GlobalStyles />
-      <Navigation />
-      <Component {...pageProps} />
+      <Navigation>
+        <Component {...pageProps} />
+      </Navigation>
     </>
   );
 }
