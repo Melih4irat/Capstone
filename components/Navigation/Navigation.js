@@ -61,6 +61,7 @@ const Navbar = styled.nav`
   bottom: 30px;
   right: 10%;
   left: 10%;
+  z-index: 1;
 
   display: flex;
   justify-content: center;
