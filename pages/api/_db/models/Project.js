@@ -2,18 +2,21 @@ import mongoose from "mongoose";
 
 // This is a demo model! Create your own model files in this directory to model your data.
 
-const OctopusSchema = new mongoose.Schema({
-  name: {
+const ProjectSchema = new mongoose.Schema({
+  projectname: {
     type: String,
     required: true,
   },
-  color: {
-    type: String,
-    required: true,
-    default: "purple",
+  toDo: {
+    type: Array,
+    required: false,
   },
-  age: {
-    type: Number,
+  WiP: {
+    type: Array,
+    required: false,
+  },
+  Done: {
+    type: Array,
     required: false,
   },
 });
@@ -21,6 +24,6 @@ const OctopusSchema = new mongoose.Schema({
 // This is important in serverless environments: Check if the model exists and otherwise create a new one.
 // The model name is the first parameter you pass to mongoose.model()
 
-export const Octopus =
-  mongoose.models.Octopus ||
-  mongoose.model("Octopus", OctopusSchema, "octopodes");
+export const Project =
+  mongoose.models.Project ||
+  mongoose.model("Project", ProjectSchema, "projects");

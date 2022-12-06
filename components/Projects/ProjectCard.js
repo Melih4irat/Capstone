@@ -1,20 +1,22 @@
 import styled from "styled-components";
-export function ProjectCard() {
+export function ProjectCard({projectname, toDo, WiP, Done}) {
   return (
     <CardContainer>
-      <HeadingTwo>Projectname</HeadingTwo>
+      <HeadingTwo>{projectname}</HeadingTwo>
       <ParamContainer>
         <ParamInnerContainer>
           <HeadingThree>Tasks</HeadingThree>
           <ParamCircle>
-            <ParamHeadingThree>0</ParamHeadingThree>
+            <ParamHeadingThree>
+              {toDo.length + WiP.length + Done.length}
+            </ParamHeadingThree>
           </ParamCircle>
         </ParamInnerContainer>
 
         <ParamInnerContainer>
           <HeadingThree>Done</HeadingThree>
           <ParamCircle>
-            <ParamHeadingThree>0</ParamHeadingThree>
+            <ParamHeadingThree>{Done.length}</ParamHeadingThree>
           </ParamCircle>
         </ParamInnerContainer>
       </ParamContainer>
