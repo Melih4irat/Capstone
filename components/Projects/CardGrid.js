@@ -1,48 +1,110 @@
 import styled from "styled-components";
 import {ProjectCard} from "./ProjectCard";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {FaRegWindowClose} from "react-icons/fa";
 
 export function CardGrid() {
   const [showModal, setShowModal] = useState(false);
+  const [reload, setReload] = useState(false);
   const [showSecondModal, setShowSecondModal] = useState(false);
+  const [projects, setProjects] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/projects");
+      const data = await response.json();
+      setProjects(data);
+    }
+    fetchData();
+  }, [reload]);
+  async function handleAddProject(event) {
+    event.preventDefault();
+    const data = Object.fromEntries(new FormData(event.target));
+    try {
+      await fetch("/api/projects", {
+        body: JSON.stringify(data),
+        headers: {"Content-Type": "application/json"},
+        method: "POST",
+      });
+      alert("Product added!");
+    } catch (error) {
+      alert(error.message);
+    }
+    event.target.reset();
+    setShowModal(false);
+    setReload(!reload);
+  }
+  async function handleDeleteProject(event) {
+    event.preventDefault();
+    const data = Object.fromEntries(new FormData(event.target));
+    try {
+      const response = await fetch("/api/projects", {
+        body: JSON.stringify(data),
+        method: "DELETE",
+      });
+      if (response.ok) {
+        console.log("Project deleted!");
+      } else {
+        throw new Error(`Fetch fehlgeschlagen mit Status: ${response.status}`);
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+    setShowSecondModal(false);
+    setReload(!reload);
+  }
   return (
     <GridContainer>
-      <ProjectCard />
+      {projects.map(({id, projectname, toDo, WiP, Done}) => {
+        return (
+          <ProjectCard
+            key={id}
+            toDo={toDo}
+            WiP={WiP}
+            Done={Done}
+            projectname={projectname}
+          />
+        );
+      })}
       <AddProjectButton onClick={() => setShowModal(true)}>
         Add Projekt +
       </AddProjectButton>
-
       <DeleteProjectButton onClick={() => setShowSecondModal(true)}>
         Delete Projekt -
       </DeleteProjectButton>
       {showModal ? (
         <ModalContainer>
-          <Form action="" method="">
+          <Form onSubmit={event => handleAddProject(event)}>
             <Label for="pname">Projectname</Label>
-            <Input type="text" id="pname"></Input>
-            <SelectUser>
-              <option>--User--</option>
-            </SelectUser>
-          </Form>
-          <CloseButton onClick={() => setShowModal(false)}>
-            <FaRegWindowClose />
-          </CloseButton>
+            <Input name="projectname" type="text" id="pname"></Input>
 
-          <AddProjectButton>Add Project</AddProjectButton>
+            <CloseButton onClick={() => setShowModal(false)}>
+              <FaRegWindowClose />
+            </CloseButton>
+
+            <AddProjectButton type="submit">Add Project</AddProjectButton>
+          </Form>
         </ModalContainer>
       ) : null}
       {showSecondModal ? (
         <ModalContainer>
-          <Form>
-            <SelectProject>
+          <Form onSubmit={event => handleDeleteProject(event)}>
+            <SelectProject name="id">
               <option>--Project--</option>
+              {projects.map(project => {
+                return (
+                  <option key={project._id} value={project._id}>
+                    {project.projectname}
+                  </option>
+                );
+              })}
             </SelectProject>
+            <DeleteProjectButton type="submit">
+              Delete Project
+            </DeleteProjectButton>
           </Form>
           <CloseButton onClick={() => setShowSecondModal(false)}>
             <FaRegWindowClose />
           </CloseButton>
-          <DeleteProjectButton>Delete Project</DeleteProjectButton>
         </ModalContainer>
       ) : null}
     </GridContainer>
@@ -85,8 +147,8 @@ const DeleteProjectButton = styled.button`
 `;
 const ModalContainer = styled.div`
   width: 250px;
-  height: 200px;
-  padding: 10px 0;
+
+  padding: 15px 0;
 
   background-color: white;
   z-index: 2;
@@ -127,14 +189,7 @@ const Input = styled.input`
   border: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 `;
-const SelectUser = styled.select`
-  height: 30px;
-  width: 150px;
-  margin: 5px 0;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-`;
+
 const SelectProject = styled.select`
   height: 30px;
   width: 150px;

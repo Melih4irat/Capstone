@@ -63,10 +63,12 @@ const MaxTime = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-const ChangeTask = styled.div`
+const ChangeTask = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
+  border: none;
+  background: none;
 `;
 const Time = styled.span`
   font-size: 0.7rem;
