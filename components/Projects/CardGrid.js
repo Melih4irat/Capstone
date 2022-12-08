@@ -8,7 +8,6 @@ export function CardGrid() {
   const [reload, setReload] = useState(false);
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [projects, setProjects] = useState([]);
-
   useEffect(() => {
     async function fetchData() {
       const response = await fetch("/api/projects");
@@ -21,7 +20,7 @@ export function CardGrid() {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
     try {
-      const response = await fetch("/api/projects", {
+      await fetch("/api/projects", {
         body: JSON.stringify(data),
         headers: {"Content-Type": "application/json"},
         method: "POST",
@@ -43,7 +42,7 @@ export function CardGrid() {
         method: "DELETE",
       });
       if (response.ok) {
-        console.log("Product deleted!");
+        console.log("Project deleted!");
       } else {
         throw new Error(`Fetch fehlgeschlagen mit Status: ${response.status}`);
       }
@@ -66,7 +65,6 @@ export function CardGrid() {
           />
         );
       })}
-
       <AddProjectButton onClick={() => setShowModal(true)}>
         Add Projekt +
       </AddProjectButton>
@@ -149,8 +147,8 @@ const DeleteProjectButton = styled.button`
 `;
 const ModalContainer = styled.div`
   width: 250px;
-  height: 200px;
-  padding: 10px 0;
+
+  padding: 15px 0;
 
   background-color: white;
   z-index: 2;

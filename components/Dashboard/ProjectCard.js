@@ -4,7 +4,7 @@ export function ProjectCard() {
     <CardContainer>
       <HeadingTwo>Projects</HeadingTwo>
       <ParamCircle>
-        <ParamHeadingThree>0</ParamHeadingThree>
+        <ParamHeadingThree></ParamHeadingThree>
       </ParamCircle>
     </CardContainer>
   );

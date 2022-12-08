@@ -13,7 +13,7 @@ export default function projects() {
 
 const MainPage = styled.main`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #4158d0;
   background-image: linear-gradient(
     43deg,
@@ -24,6 +24,7 @@ const MainPage = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 20vh;
 `;
 const Header = styled.header`
   width: 100%;
