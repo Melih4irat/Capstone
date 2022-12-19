@@ -1,0 +1,38 @@
+[
+  {
+    "status": "toDo",
+    "taskname": "Wireframing",
+    "description": "lorem ipsum...",
+    "enddate": "10.01.2023",
+    "priority": "high priority",
+    "time": {
+      "std": "00",
+      "min": "00",
+      "sec": "00"
+    }
+  },
+  {
+    "status": "WiP",
+    "taskname": "Wireframing",
+    "description": "lorem ipsum...",
+    "enddate": "10.01.2023",
+    "priority": "high priority",
+    "time": {
+      "std": "00",
+      "min": "00",
+      "sec": "00"
+    }
+  },
+  {
+    "status": "Done",
+    "taskname": "Wireframing",
+    "description": "lorem ipsum...",
+    "enddate": "10.01.2023",
+    "priority": "high priority",
+    "time": {
+      "std": "00",
+      "min": "00",
+      "sec": "00"
+    }
+  }
+]

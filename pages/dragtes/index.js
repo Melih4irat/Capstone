@@ -1,18 +1,16 @@
+import Kanban from "../../components/dragtes/KanBan";
 import styled from "styled-components";
-import {CardGrid} from "../../components/Dashboard/CardGrid";
-import {test} from "../../_data/projects";
-export default function Dashboard() {
-  console.log(test);
+export default function dragtes() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   return (
-    <MainPage>
-      <Header>
-        <HeadingOne>Dashboard</HeadingOne>
-      </Header>
-      <CardGrid />
+    <MainPage className="App">
+      <Header />
+
+      <Kanban />
     </MainPage>
   );
 }
-
 const MainPage = styled.main`
   width: 100vw;
   height: 100vh;
@@ -31,6 +29,9 @@ const Header = styled.header`
   width: 100%;
   height: 70px;
   padding: 20px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
@@ -38,9 +39,4 @@ const Header = styled.header`
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   margin-bottom: 10px;
-`;
-const HeadingOne = styled.h1`
-  margin: 0;
-  color: #fff;
-  font-size: 1.5rem;
 `;
