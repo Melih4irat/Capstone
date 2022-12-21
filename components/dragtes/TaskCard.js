@@ -1,7 +1,7 @@
 import React from "react";
 import {Draggable} from "react-beautiful-dnd";
 import styled from "styled-components";
-import {FaTrashAlt} from "react-icons/fa";
+import {FaTrashAlt, FaPlayCircle, FaStopCircle} from "react-icons/fa";
 
 const TaskCard = ({item, index}) => {
   return (
@@ -13,18 +13,20 @@ const TaskCard = ({item, index}) => {
           {...provided.dragHandleProps}
         >
           <TaskInformation>
-            <Priority>High Priority</Priority>
             <Taskname>{item.Task}</Taskname>
-            <Description>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr...
-            </Description>
+            <Description>{item.description}</Description>
+
             <MaxTime>
-              <Time>00:00:00</Time>
-              <TimeScale>min</TimeScale>
+              <Priority>{item.priority}</Priority>
+              <StartButton>
+                <FaPlayCircle />
+              </StartButton>
+
+              <Time>{item.time}</Time>
             </MaxTime>
-            <ChangeTask>
+            <DeleteTask>
               <FaTrashAlt />
-            </ChangeTask>
+            </DeleteTask>
 
             {/* <div className="secondary-details"> */}
             {/* <p> */}
@@ -48,10 +50,10 @@ export default TaskCard;
 const TaskInformation = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   padding: 10px 10px;
-  min-height: 106px;
+  height: 130px;
   border-radius: 5px;
   width: 200px;
   background: rgba(255, 255, 255, 0.2);
@@ -74,50 +76,56 @@ const TaskInformation = styled.div`
   }
 `;
 const Priority = styled.div`
-  width: 70px;
-  height: 15px;
+  width: 80px;
+  height: 20px;
   background-color: red;
-  font-size: 10px;
+  font-size: 0.7rem;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
+  margin-right: 10px;
 `;
 const Taskname = styled.h3`
   margin: 5px 0;
 `;
 
 const Description = styled.p`
-  margin: 0 10px;
+  margin: 0;
   font-size: 0.8rem;
 `;
 const MaxTime = styled.div`
   position: absolute;
-  bottom: 10px;
+  bottom: 5px;
   right: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
-const ChangeTask = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: 1px solid rgba(255, 0, 0, 0.6);
-  border-radius: 5px;
+const StartButton = styled.button`
+  font-size: 1.3rem;
+  background: none;
+  border: none;
+  margin: 0;
+  color: green;
+
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+const DeleteTask = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 5px;
   background: none;
-  background: rgba(255, 0, 0, 0.6);
-  color: #fff;
-  height: 30px;
-  width: 30px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: red;
 `;
 const Time = styled.span`
-  font-size: 0.7rem;
-`;
-const TimeScale = styled.span`
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 `;

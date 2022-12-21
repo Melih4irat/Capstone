@@ -146,7 +146,7 @@ const DeleteProjectButton = styled.button`
 `;
 const ModalContainer = styled.div`
   width: 250px;
-  height: 200px;
+  height: 150px;
   padding: 15px 0;
 
   background-color: white;
@@ -155,7 +155,7 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   position: absolute;
   top: 20vh;
 
@@ -180,6 +180,7 @@ const Form = styled.form`
 `;
 const Label = styled.label`
   font-size: 0.8rem;
+  text-align: center;
 `;
 const Input = styled.input`
   height: 30px;

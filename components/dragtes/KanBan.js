@@ -115,9 +115,9 @@ const Container = styled.div`
   width: 100%;
 `;
 const ListContainer = styled.div`
-  height: 170px;
+  height: 160px;
   width: 100%;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
@@ -125,6 +125,7 @@ const ListContainer = styled.div`
 const TaskList = styled.div`
   display: flex;
   width: auto;
+  height: auto;
   position: relative;
   border-radius: 5px;
   padding-bottom: 10px;
