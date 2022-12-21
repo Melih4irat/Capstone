@@ -115,7 +115,7 @@ const Container = styled.div`
   width: 100%;
 `;
 const ListContainer = styled.div`
-  min-height: 100px;
+  height: 170px;
   width: 100%;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
   display: flex;

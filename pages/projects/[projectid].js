@@ -1,7 +1,7 @@
 import Kanban from "../../components/dragtes/KanBan";
 import styled from "styled-components";
 import {useState, useEffect} from "react";
-import {FaRegWindowClose} from "react-icons/fa";
+import {FaRegWindowClose, FaArrowAltCircleRight} from "react-icons/fa";
 import {useRouter} from "next/router";
 
 export default function Project({setPageState}) {
@@ -24,16 +24,21 @@ export default function Project({setPageState}) {
   return (
     <MainPage className="App">
       <Header>
-        <SelectProject name="id">
-          <option>-Project-</option>
-          {projects.map(project => {
-            return (
-              <option key={project._id} value={project._id}>
-                {project.projectname}
-              </option>
-            );
-          })}
-        </SelectProject>
+        <ChangeProject>
+          <SelectProject name="id">
+            <option>{projects.projectname}</option>
+            {projects.map(project => {
+              return (
+                <option key={project._id} value={project._id}>
+                  {project.projectname}
+                </option>
+              );
+            })}
+          </SelectProject>
+          <MoveButton>
+            <FaArrowAltCircleRight />
+          </MoveButton>
+        </ChangeProject>
         <AddTaskButton onClick={() => setShowModal(true)}>
           Add Task+
         </AddTaskButton>
@@ -111,12 +116,32 @@ const Header = styled.header`
   border: 1px solid rgba(255, 255, 255, 0.3);
   margin-bottom: 10px;
 `;
+const ChangeProject = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const SelectProject = styled.select`
   border: none;
   background-color: transparent;
   font-size: 1.5rem;
   color: white;
   font-weight: bold;
+`;
+const MoveButton = styled.button`
+  font-size: 1rem;
+  border-radius: 10px;
+  background: rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  margin: 5px 5px;
+  color: white;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const AddTaskButton = styled.button`
   width: 100px;

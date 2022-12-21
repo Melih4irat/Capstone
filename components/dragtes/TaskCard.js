@@ -1,11 +1,9 @@
 import React from "react";
 import {Draggable} from "react-beautiful-dnd";
 import styled from "styled-components";
-import {FaPencilAlt, FaRegWindowClose} from "react-icons/fa";
-import {useState} from "react";
+import {FaTrashAlt} from "react-icons/fa";
 
 const TaskCard = ({item, index}) => {
-  const [showModal, setShowModal] = useState(false);
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {provided => (
@@ -24,8 +22,8 @@ const TaskCard = ({item, index}) => {
               <Time>00:00:00</Time>
               <TimeScale>min</TimeScale>
             </MaxTime>
-            <ChangeTask onClick={() => setShowModal(true)}>
-              <FaPencilAlt />
+            <ChangeTask>
+              <FaTrashAlt />
             </ChangeTask>
 
             {/* <div className="secondary-details"> */}
@@ -39,45 +37,6 @@ const TaskCard = ({item, index}) => {
             {/* </p> */}
             {/* </div> */}
           </TaskInformation>
-          {showModal ? (
-            <ModalContainer>
-              <Form action="" method="">
-                <Label for="pname">Projectname</Label>
-                <Input type="text" id="pname"></Input>
-                <Label for="description">Description</Label>
-                <DescriptionInput id="description"></DescriptionInput>
-                <Label for="date">Enddate</Label>
-                <Input type="text" id="date"></Input>
-
-                <Label for="prio">Priority</Label>
-                <PriorityContainer>
-                  <RadioInputHigh
-                    type="radio"
-                    name="prio"
-                    id="prioHigh"
-                  ></RadioInputHigh>
-                  <Label for="prioHigh"></Label>
-                  <RadioInputMid
-                    type="radio"
-                    name="prio"
-                    id="prioMid"
-                  ></RadioInputMid>
-                  <Label for="prioMid"></Label>
-                  <RadioInputLow
-                    type="radio"
-                    name="prio"
-                    id="prioLow"
-                  ></RadioInputLow>
-                  <Label for="prioLow"></Label>
-                </PriorityContainer>
-              </Form>
-              <CloseButton onClick={() => setShowModal(false)}>
-                <FaRegWindowClose />
-              </CloseButton>
-
-              <AddTaskButton>Add Task</AddTaskButton>
-            </ModalContainer>
-          ) : null}
         </div>
       )}
     </Draggable>
@@ -97,9 +56,8 @@ const TaskInformation = styled.div`
   width: 200px;
   background: rgba(255, 255, 255, 0.2);
   padding-bottom: 30px;
+  position: relative;
 
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 15px;
   margin-right: 15px;
@@ -146,109 +104,20 @@ const ChangeTask = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
-  border: none;
+  border: 1px solid rgba(255, 0, 0, 0.6);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
+  background: rgba(255, 0, 0, 0.6);
+  color: #fff;
+  height: 30px;
+  width: 30px;
 `;
 const Time = styled.span`
   font-size: 0.7rem;
 `;
 const TimeScale = styled.span`
   font-size: 0.7rem;
-`;
-const ModalContainer = styled.div`
-  width: 250px;
-  height: 400px;
-  padding: 10px 0;
-  padding-bottom: 20px;
-
-  background-color: white;
-  z-index: 2;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  position: absolute;
-  top: 20vh;
-
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-`;
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
-  border: none;
-  font-size: 1rem;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-`;
-const Label = styled.label`
-  font-size: 0.8rem;
-  margin-top: 10px;
-`;
-const Input = styled.input`
-  height: 30px;
-  width: 150px;
-  margin: 5px 0;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-`;
-const DescriptionInput = styled.textarea`
-  height: 80px;
-  width: 150px;
-  margin: 5px 0;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-`;
-const PriorityContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 150px;
-`;
-const RadioInputHigh = styled.input`
-  width: 25px;
-  height: 25px;
-  accent-color: red;
-  outline: 2px solid red;
-`;
-const RadioInputMid = styled.input`
-  width: 25px;
-  height: 25px;
-  accent-color: yellow;
-  outline: 2px solid yellow;
-`;
-const RadioInputLow = styled.input`
-  width: 25px;
-  height: 25px;
-  accent-color: green;
-  outline: 2px solid green;
-  outline-radius: 100%;
-`;
-
-const AddTaskButton = styled.button`
-  width: 100px;
-  height: 40px;
-  color: white;
-
-  font-size: 1rem;
-  border-radius: 10px;
-  background: rgba(0, 255, 0, 0.3);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  margin: 5px 5px;
 `;
