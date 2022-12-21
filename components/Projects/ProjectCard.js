@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export function ProjectCard({projectname, toDo, WiP, Done}) {
+export function ProjectCard({projectname, columns}) {
   return (
     <CardContainer>
       <HeadingTwo>{projectname}</HeadingTwo>
@@ -8,7 +8,9 @@ export function ProjectCard({projectname, toDo, WiP, Done}) {
           <HeadingThree>Tasks</HeadingThree>
           <ParamCircle>
             <ParamHeadingThree>
-              {toDo.length + WiP.length + Done.length}
+              {columns?.todo?.items?.length +
+                columns?.wip?.items?.length +
+                columns?.done?.items?.length}
             </ParamHeadingThree>
           </ParamCircle>
         </ParamInnerContainer>
@@ -16,7 +18,7 @@ export function ProjectCard({projectname, toDo, WiP, Done}) {
         <ParamInnerContainer>
           <HeadingThree>Done</HeadingThree>
           <ParamCircleDone>
-            <ParamHeadingThree>{Done.length}</ParamHeadingThree>
+            <ParamHeadingThree>{columns.done.items.length}</ParamHeadingThree>
           </ParamCircleDone>
         </ParamInnerContainer>
       </Container>
@@ -32,7 +34,6 @@ const CardContainer = styled.article`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  margin: 1.5%;
 
   display: flex;
   justify-content: space-between;

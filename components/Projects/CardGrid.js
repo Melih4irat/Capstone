@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {ProjectCard} from "./ProjectCard";
 import {useState, useEffect} from "react";
 import {FaRegWindowClose} from "react-icons/fa";
+import Link from "next/link";
 
 export function CardGrid() {
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +17,7 @@ export function CardGrid() {
     }
     fetchData();
   }, [reload]);
+
   async function handleAddProject(event) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
@@ -25,7 +27,7 @@ export function CardGrid() {
         headers: {"Content-Type": "application/json"},
         method: "POST",
       });
-      alert("Product added!");
+      alert("Project added!");
     } catch (error) {
       alert(error.message);
     }
@@ -54,15 +56,12 @@ export function CardGrid() {
   }
   return (
     <GridContainer>
-      {projects.map(({id, projectname, toDo, WiP, Done}) => {
+      {projects.map(({_id, projectname, columns}) => {
+        console.log(columns);
         return (
-          <ProjectCard
-            key={id}
-            toDo={toDo}
-            WiP={WiP}
-            Done={Done}
-            projectname={projectname}
-          />
+          <CardLink key={_id} href={`/projects/${_id}`}>
+            <ProjectCard columns={columns} projectname={projectname} />
+          </CardLink>
         );
       })}
       <AddProjectButton onClick={() => setShowModal(true)}>
@@ -147,7 +146,7 @@ const DeleteProjectButton = styled.button`
 `;
 const ModalContainer = styled.div`
   width: 250px;
-
+  height: 200px;
   padding: 15px 0;
 
   background-color: white;
@@ -157,7 +156,8 @@ const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  position: relative;
+  position: absolute;
+  top: 20vh;
 
   border-radius: 15px;
   background: rgba(255, 255, 255, 0.3);
@@ -197,4 +197,9 @@ const SelectProject = styled.select`
   border-radius: 10px;
   border: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+`;
+const CardLink = styled(Link)`
+  width: 100%;
+  text-decoration: none;
+  padding: 0;
 `;

@@ -1,31 +1,41 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import {test} from "../../_data/projects.js";
 
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import TaskCard from "./TaskCard";
-const Kanban = () => {
+
+const Kanban = ({projectid}) => {
+  const [columns, setColumns] = useState([]);
+  const [timeOutReset, setTimeOutReset] = useState(false);
+  const [allData, setAllData] = useState(false);
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/api/projects");
-      await response.json();
-
-      //setColumns(data[0].columns);
-      // console.log(data);
+      const response = await fetch(`/api/projects/${projectid}`);
+      const data = await response.json();
+      setAllData(data);
+      console.log(data);
+      setColumns(data.columns);
     }
     fetchData();
   }, []);
-  //   useEffect(() => {
-  //     async function fetchData() {
-  //       const response = await fetch("/api/tasks");
-  //       const data = await response.json();
-  //       setTasks(data);
-  //     }
-  //     fetchData();
-  //   });
-  const [columns, setColumns] = useState(test[0].columns);
+  useEffect(() => {
+    if (allData) {
+      clearTimeout(timeOutReset);
+      setTimeOutReset(setTimeout(pushData, 2000));
+    }
+    async function pushData() {
+      const response = await fetch("/api/projects", {
+        method: "PUT",
+        body: JSON.stringify({
+          projectname: allData.projectname,
+          columns: columns,
+        }),
+        headers: {"Content-Type": "application/json"},
+      });
+      console.log(response);
+    }
+  }, [columns]);
 
-  console.log(columns);
   //const [tasks, setTasks] = useState([]);
 
   const onDragEnd = (result, columns, setColumns) => {
@@ -71,18 +81,24 @@ const Kanban = () => {
         <TaskColumnStyles>
           {Object.entries(columns).map(([columnId, column]) => {
             return (
-              <Droppable key={columnId} droppableId={columnId}>
+              <Droppable
+                key={`column${columnId}`}
+                droppableId={String(columnId)}
+              >
                 {provided => (
-                  <TaskList
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
+                  <ListContainer>
                     <Title>{column.title}</Title>
-                    {column.items.map((item, index) => (
-                      <TaskCard key={item} item={item} index={index} />
-                    ))}
-                    {provided.placeholder}
-                  </TaskList>
+
+                    <TaskList
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                    >
+                      {column.items.map((item, index) => (
+                        <TaskCard key={index} item={item} index={index} />
+                      ))}
+                      {provided.placeholder}
+                    </TaskList>
+                  </ListContainer>
                 )}
               </Droppable>
             );
@@ -96,31 +112,40 @@ const Kanban = () => {
 export default Kanban;
 
 const Container = styled.div`
-  display: flex;
+  width: 100%;
 `;
-
-const TaskList = styled.div`
+const ListContainer = styled.div`
   min-height: 100px;
+  width: 100%;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
-  background: #f3f3f3;
-  min-width: 341px;
+  margin-bottom: 10px;
+`;
+const TaskList = styled.div`
+  display: flex;
+  width: auto;
+  position: relative;
   border-radius: 5px;
-  padding: 15px 15px;
-  margin-right: 45px;
+  padding-bottom: 10px;
+
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const TaskColumnStyles = styled.div`
-  margin: 8px;
   display: flex;
   width: 100%;
   min-height: 80vh;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.span`
-  color: #10957d;
-  background: rgba(16, 149, 125, 0.15);
+  color: #fff;
+
   padding: 2px 10px;
-  border-radius: 5px;
+
   align-self: flex-start;
+  font-size: 1.3rem;
 `;

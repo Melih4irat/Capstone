@@ -2,18 +2,37 @@ import Kanban from "../../components/dragtes/KanBan";
 import styled from "styled-components";
 import {useState, useEffect} from "react";
 import {FaRegWindowClose} from "react-icons/fa";
-export default function Dragtes({setPageState}) {
+import {useRouter} from "next/router";
+
+export default function Project({setPageState}) {
+  const [projects, setProjects] = useState([]);
   useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/projects");
+      const data = await response.json();
+      setProjects(data);
+    }
+    fetchData();
+
     setPageState("projects");
   }, []);
+  const router = useRouter();
+  const {projectid} = router.query;
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showModal, setShowModal] = useState(false);
   return (
     <MainPage className="App">
       <Header>
-        <SelectProject>
-          <option>Projectname</option>
+        <SelectProject name="id">
+          <option>-Project-</option>
+          {projects.map(project => {
+            return (
+              <option key={project._id} value={project._id}>
+                {project.projectname}
+              </option>
+            );
+          })}
         </SelectProject>
         <AddTaskButton onClick={() => setShowModal(true)}>
           Add Task+
@@ -59,7 +78,7 @@ export default function Dragtes({setPageState}) {
         </ModalContainer>
       ) : null}
 
-      <Kanban />
+      <Kanban projectid={projectid} />
     </MainPage>
   );
 }
@@ -126,7 +145,8 @@ const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  position: relative;
+  position: absolute;
+  top: 20vh;
 
   border-radius: 15px;
   background: rgba(255, 255, 255, 0.3);

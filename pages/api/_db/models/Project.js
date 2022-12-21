@@ -19,16 +19,3 @@ const ProjectSchema = new mongoose.Schema({
 export const Project =
   mongoose.models.Project ||
   mongoose.model("Project", ProjectSchema, "projects");
-
-// toDo: {
-//   type: Array,
-//   required: false,
-// },
-// WiP: {
-//   type: Array,
-//   required: false,
-// },
-// Done: {
-//   type: Array,
-//   required: false,
-// },
