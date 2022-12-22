@@ -1,7 +1,7 @@
 import React from "react";
 import {Draggable} from "react-beautiful-dnd";
 import styled from "styled-components";
-import {FaTrashAlt, FaPlayCircle, FaStopCircle} from "react-icons/fa";
+import {FaTrashAlt, FaPlayCircle} from "react-icons/fa";
 
 const TaskCard = ({item, index}) => {
   return (
