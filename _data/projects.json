@@ -1,222 +1,95 @@
 [
   {
     "projectname": "Projectzero",
-    "toDo": [
-      {
-        "taskname": "Wireframing",
-        "description": "lorem ipsum...",
-        "enddate": "10.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
+    "columns": {
+      "todo": {
+        "title": "to Do",
+        "items": [
+          {
+            "id": "0",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          },
+          {
+            "id": "1",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          },
+          {
+            "id": "2",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          }
+        ]
       },
-      {
-        "taskname": "Conception",
-        "description": "lorem ipsum...",
-        "enddate": "15.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
+      "wip": {
+        "title": "Work in Progress",
+        "items": [
+          {
+            "id": "3",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          },
+          {
+            "id": "4",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          },
+          {
+            "id": "5",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          }
+        ]
       },
-      {
-        "taskname": "Umsetzung",
-        "description": "lorem ipsum...",
-        "enddate": "20.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      }
-    ],
 
-    "WiP": [
-      {
-        "taskname": "Scribble",
-        "description": "lorem ipsum...",
-        "enddate": "10.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Contentplanung",
-        "description": "lorem ipsum...",
-        "enddate": "15.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Idee",
-        "description": "lorem ipsum...",
-        "enddate": "20.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
+      "done": {
+        "title": "Done",
+        "items": [
+          {
+            "id": "6",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          },
+          {
+            "id": "7",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          },
+          {
+            "id": "8",
+            "Task": "Wireframing",
+            "description": "lorem ipsum...",
+            "enddate": "10.01.2023",
+            "priority": "high priority",
+            "time": "00:00:00"
+          }
+        ]
       }
-    ],
-
-    "Done": [
-      {
-        "taskname": "Wireframing",
-        "description": "lorem ipsum...",
-        "enddate": "10.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Conception",
-        "description": "lorem ipsum...",
-        "enddate": "15.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Umsetzung",
-        "description": "lorem ipsum...",
-        "enddate": "20.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      }
-    ]
-  },
-  {
-    "projectname": "Projectone",
-    "toDo": [
-      {
-        "taskname": "Wireframing",
-        "description": "lorem ipsum...",
-        "enddate": "10.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Conception",
-        "description": "lorem ipsum...",
-        "enddate": "15.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Umsetzung",
-        "description": "lorem ipsum...",
-        "enddate": "20.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      }
-    ],
-
-    "WiP": [
-      {
-        "taskname": "Scribble",
-        "description": "lorem ipsum...",
-        "enddate": "10.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Contentplanung",
-        "description": "lorem ipsum...",
-        "enddate": "15.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Idee",
-        "description": "lorem ipsum...",
-        "enddate": "20.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      }
-    ],
-
-    "Done": [
-      {
-        "taskname": "Wireframing",
-        "description": "lorem ipsum...",
-        "enddate": "10.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Conception",
-        "description": "lorem ipsum...",
-        "enddate": "15.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      },
-      {
-        "taskname": "Umsetzung",
-        "description": "lorem ipsum...",
-        "enddate": "20.01.2023",
-        "priority": "high priority",
-        "time": {
-          "std": "00",
-          "min": "00",
-          "sec": "00"
-        }
-      }
-    ]
+    }
   }
 ]

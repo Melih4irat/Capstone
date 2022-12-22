@@ -1,0 +1,14 @@
+[
+  {
+    "title": "toDo",
+    "items": "tasks"
+  },
+  {
+    "title": "WiP",
+    "items": []
+  },
+  {
+    "title": "Done",
+    "items": []
+  }
+]

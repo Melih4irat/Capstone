@@ -1,6 +1,11 @@
+import {useEffect} from "react";
 import styled from "styled-components";
 import {CardGrid} from "../../components/Dashboard/CardGrid";
-export default function Dashboard() {
+
+export default function Dashboard({setPageState}) {
+  useEffect(() => {
+    setPageState("dashboard");
+  }, []);
   return (
     <MainPage>
       <Header>

@@ -1,12 +1,16 @@
+import Kanban from "../../components/dragtes/KanBan";
 import styled from "styled-components";
+import {useState, useEffect} from "react";
 import {FaRegWindowClose} from "react-icons/fa";
-import {Carousel} from "../../components/carousel/Carousel";
-import {useState} from "react";
+export default function Dragtes({setPageState}) {
+  useEffect(() => {
+    setPageState("projects");
+  }, []);
 
-export default function Tasks() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showModal, setShowModal] = useState(false);
   return (
-    <MainPage>
+    <MainPage className="App">
       <Header>
         <SelectProject>
           <option>Projectname</option>
@@ -15,18 +19,6 @@ export default function Tasks() {
           Add Task+
         </AddTaskButton>
       </Header>
-      <Container>
-        <Heading>To Do</Heading>
-        <Carousel />
-      </Container>
-      <Container>
-        <Heading>Work in Progress</Heading>
-        <Carousel />
-      </Container>
-      <Container>
-        <Heading>Done</Heading>
-        <Carousel />
-      </Container>
       {showModal ? (
         <ModalContainer>
           <Form action="" method="">
@@ -66,10 +58,11 @@ export default function Tasks() {
           <AddTaskButton>Add Task</AddTaskButton>
         </ModalContainer>
       ) : null}
+
+      <Kanban />
     </MainPage>
   );
 }
-
 const MainPage = styled.main`
   width: 100vw;
   height: 100vh;
@@ -106,17 +99,6 @@ const SelectProject = styled.select`
   color: white;
   font-weight: bold;
 `;
-const Container = styled.section`
-  width: 100%;
-  text-align: left;
-`;
-const Heading = styled.h2`
-  margin-bottom: 5px;
-  color: #fff;
-  margin-left: 20px;
-  font-size: 1.2rem;
-`;
-
 const AddTaskButton = styled.button`
   width: 100px;
   height: 40px;
@@ -131,7 +113,6 @@ const AddTaskButton = styled.button`
   border: 1px solid rgba(0, 255, 0, 0.3);
   margin: 5px 5px;
 `;
-
 const ModalContainer = styled.div`
   width: 250px;
   height: 400px;
@@ -140,7 +121,7 @@ const ModalContainer = styled.div`
 
   background-color: white;
   z-index: 2;
-  bottom: 70vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;

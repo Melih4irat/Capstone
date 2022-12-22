@@ -7,17 +7,9 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  toDo: {
-    type: Array,
-    required: false,
-  },
-  WiP: {
-    type: Array,
-    required: false,
-  },
-  Done: {
-    type: Array,
-    required: false,
+  columns: {
+    type: Object,
+    required: true,
   },
 });
 

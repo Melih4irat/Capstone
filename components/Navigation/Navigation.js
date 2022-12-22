@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import Link from "next/link";
 import {FaHome, FaClipboardList, FaCalendarAlt, FaUser} from "react-icons/fa";
-import {useState} from "react";
 
-export default function Navigation() {
-  const [pageState, setPageState] = useState("dashboard");
+export default function Navigation({pageState, setPageState}) {
   return (
-    <Navbar>
+    <Navbar pageState={pageState}>
       <NavList>
         <NavItem>
           <Link href="/dashboard">
@@ -66,6 +64,8 @@ const Navbar = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${props => (props.pageState === "none" ? "display:none;" : " ")};
 `;
 const NavList = styled.ul`
   width: 100%;

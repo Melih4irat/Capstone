@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import {CardGrid} from "../../components/Projects/CardGrid";
-export default function projects() {
+import {useEffect} from "react";
+export default function Projects({setPageState}) {
+  useEffect(() => {
+    setPageState("projects");
+  }, []);
   return (
     <MainPage>
       <Header>

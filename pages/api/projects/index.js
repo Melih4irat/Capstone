@@ -39,13 +39,25 @@ async function handler(req, res) {
         const deletedProject = await Project.findByIdAndDelete(ID.id);
         return res
           .status(200)
-          .json({message: `Product ${deletedProject.projectname} deleted`});
+          .json({message: `Project ${deletedProject.projectname} deleted`});
       } catch (error) {
         return res.status(500).json({error: error.message});
       }
 
     case "PUT":
     case "PATCH":
+      try {
+        console.log(req.body);
+        const updatedProject = await Project.updateOne(
+          {projectname: req.body.projectname},
+          {columns: req.body.columns}
+        );
+        return res
+          .status(200)
+          .json({message: `Project ${updatedProject.projectname} updated`});
+      } catch (error) {
+        return res.status(500).json({error: error.message});
+      }
     default:
       res.status(405).json({error: "method not allowed"});
   }
