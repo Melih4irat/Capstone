@@ -21,9 +21,20 @@ async function handler(req, res) {
       try {
         const newProject = new Project({
           projectname: req.body.projectname,
-          toDo: [],
-          WiP: [],
-          Done: [],
+          columns: {
+            todo: {
+              title: "toDo",
+              items: [],
+            },
+            wip: {
+              title: "Work in Progress",
+              items: [],
+            },
+            done: {
+              title: "Done",
+              items: [],
+            },
+          },
         });
         await newProject.save();
         res.status(200).json(newProject);

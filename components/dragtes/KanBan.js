@@ -13,7 +13,7 @@ const Kanban = ({projectid}) => {
       const response = await fetch(`/api/projects/${projectid}`);
       const data = await response.json();
       setAllData(data);
-      console.log(data);
+
       setColumns(data.columns);
     }
     fetchData();
@@ -24,7 +24,7 @@ const Kanban = ({projectid}) => {
       setTimeOutReset(setTimeout(pushData, 2000));
     }
     async function pushData() {
-      const response = await fetch("/api/projects", {
+      await fetch("/api/projects", {
         method: "PUT",
         body: JSON.stringify({
           projectname: allData.projectname,
@@ -32,10 +32,20 @@ const Kanban = ({projectid}) => {
         }),
         headers: {"Content-Type": "application/json"},
       });
-      console.log(response);
     }
   }, [columns]);
+  function deleteTask(columnId, card) {
+    const newItems = columns[columnId].items.filter(task => task !== card);
 
+    setColumns({
+      ...columns,
+      [columnId]: {...columns[columnId], items: newItems},
+    });
+    //   Object.entries(columns).map(([, value]) => {
+    //     return value.items.filter(task => task !== card);
+    //   })
+    // );
+  }
   //const [tasks, setTasks] = useState([]);
 
   const onDragEnd = (result, columns, setColumns) => {
@@ -84,6 +94,7 @@ const Kanban = ({projectid}) => {
               <Droppable
                 key={`column${columnId}`}
                 droppableId={String(columnId)}
+                direction="horizontal"
               >
                 {provided => (
                   <ListContainer>
@@ -93,8 +104,14 @@ const Kanban = ({projectid}) => {
                       ref={provided.innerRef}
                       {...provided.droppableProps}
                     >
-                      {column.items.map((item, index) => (
-                        <TaskCard key={index} item={item} index={index} />
+                      {column?.items?.map((item, index) => (
+                        <TaskCard
+                          columnId={columnId}
+                          deleteTask={deleteTask}
+                          key={index}
+                          item={item}
+                          index={index}
+                        />
                       ))}
                       {provided.placeholder}
                     </TaskList>

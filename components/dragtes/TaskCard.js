@@ -3,7 +3,7 @@ import {Draggable} from "react-beautiful-dnd";
 import styled from "styled-components";
 import {FaTrashAlt, FaPlayCircle} from "react-icons/fa";
 
-const TaskCard = ({item, index}) => {
+const TaskCard = ({item, index, deleteTask, columnId}) => {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {provided => (
@@ -24,7 +24,7 @@ const TaskCard = ({item, index}) => {
 
               <Time>{item.time}</Time>
             </MaxTime>
-            <DeleteTask>
+            <DeleteTask onClick={() => deleteTask(columnId, item)}>
               <FaTrashAlt />
             </DeleteTask>
 
