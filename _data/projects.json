@@ -10,24 +10,24 @@
             "Task": "Wireframing",
             "description": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "1",
             "Task": "Design",
             "description": "lorem ipsum...",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "2",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           }
         ]
       },
@@ -39,24 +39,24 @@
             "Task": "Wireframing",
             "description": "lorem ipsum...",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "4",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "5",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           }
         ]
       },
@@ -69,24 +69,24 @@
             "Task": "Wireframing",
             "description": "lorem ipsum...",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "7",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "8",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
 
-            "priority": "high priority",
-            "time": "00:00:00"
+            "priority": "High Priority",
+            "timestamp": false
           }
         ]
       }

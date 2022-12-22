@@ -1,9 +1,44 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {Draggable} from "react-beautiful-dnd";
 import styled from "styled-components";
-import {FaTrashAlt, FaPlayCircle} from "react-icons/fa";
+import {FaTrashAlt, FaPlayCircle, FaStopCircle} from "react-icons/fa";
 
-const TaskCard = ({item, index, deleteTask, columnId}) => {
+const TaskCard = ({item, index, deleteTask, columnId, setTimeStamp}) => {
+  const [displayTime, setDisplayTime] = useState(false);
+  const [startTime, setStartTime] = useState(0);
+  // function startTimer() {
+  //   // let startTime = item.timestamp;
+
+  //   setInterval(() => {
+  //     let elapsedTime = Date.now() - item.timestamp;
+  //     // console.log(elapsedTime);
+  //     // Do something with the elapsed time
+  //   }, 1000);
+  // }
+
+  // useEffect(() => {
+  //   if (item.timestamp) {
+  //     startTimer();
+  //   }
+  // }, []);
+  // console.log(Date.now() - item.timestamp);
+  function calculateTime() {
+    let ms2 = Date.now();
+    let ms = ms2 - item.timestamp - 3600000;
+    let date = new Date(ms);
+    let time = date.toLocaleTimeString("de-DE", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    setDisplayTime(time);
+    console.log(time);
+  }
+  useEffect(() => {
+    if (item.timestamp) {
+      setTimeout(calculateTime, 1000);
+    }
+  }, [displayTime]);
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {provided => (
@@ -18,11 +53,25 @@ const TaskCard = ({item, index, deleteTask, columnId}) => {
 
             <MaxTime>
               <Priority>{item.priority}</Priority>
-              <StartButton>
-                <FaPlayCircle />
-              </StartButton>
 
-              <Time>{item.time}</Time>
+              {item.timestamp ? (
+                <StoppButton
+                  onClick={() => setTimeStamp(item, columnId, false)}
+                >
+                  <FaStopCircle />
+                </StoppButton>
+              ) : (
+                <StartButton
+                  onClick={() => {
+                    setDisplayTime(false);
+                    setTimeStamp(item, columnId, Date.now());
+                  }}
+                >
+                  <FaPlayCircle />{" "}
+                </StartButton>
+              )}
+
+              <Time>{displayTime ? displayTime : "00:00:00"}</Time>
             </MaxTime>
             <DeleteTask onClick={() => deleteTask(columnId, item)}>
               <FaTrashAlt />
@@ -86,6 +135,9 @@ const Priority = styled.div`
   align-items: center;
   color: #fff;
   margin-right: 10px;
+  ${props =>
+    props.children === "Mid Priority" && "background-color:yellow; color:#000;"}
+  ${props => props.children === "Low Priority" && "background-color:green;"}
 `;
 const Taskname = styled.h3`
   margin: 5px 0;
@@ -109,6 +161,17 @@ const StartButton = styled.button`
   border: none;
   margin: 0;
   color: green;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const StoppButton = styled.button`
+  font-size: 1.3rem;
+  background: none;
+  border: none;
+  margin: 0;
+  color: red;
 
   display: flex;
   align-items: center;

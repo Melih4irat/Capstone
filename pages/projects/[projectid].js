@@ -3,22 +3,81 @@ import styled from "styled-components";
 import {useState, useEffect} from "react";
 import {FaRegWindowClose, FaArrowAltCircleRight} from "react-icons/fa";
 import {useRouter} from "next/router";
+import {v4} from "uuid";
 
 export default function Project({setPageState}) {
-  const [projects, setProjects] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("/api/projects");
-      const data = await response.json();
-      setProjects(data);
-    }
-    fetchData();
-
-    setPageState("projects");
-  }, []);
   const router = useRouter();
   const {projectid} = router.query;
 
+  const [columns, setColumns] = useState([]);
+  const [timeOutReset, setTimeOutReset] = useState(false);
+  const [allData, setAllData] = useState(false);
+
+  useEffect(() => {
+    setPageState("projects");
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(`/api/projects/${projectid}`);
+      const data = await response.json();
+      setAllData(data);
+
+      setColumns(data.columns);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (allData) {
+      clearTimeout(timeOutReset);
+      setTimeOutReset(setTimeout(pushData, 2000));
+    }
+    async function pushData() {
+      await fetch("/api/projects", {
+        method: "PUT",
+        body: JSON.stringify({
+          projectname: allData.projectname,
+          columns: columns,
+        }),
+        headers: {"Content-Type": "application/json"},
+      });
+    }
+  }, [columns]);
+
+  function deleteTask(columnId, card) {
+    const newItems = columns[columnId].items.filter(task => task !== card);
+
+    setColumns({
+      ...columns,
+      [columnId]: {...columns[columnId], items: newItems},
+    });
+  }
+
+  function handleNewTask(event) {
+    event.preventDefault();
+    const formData = Object.fromEntries(new FormData(event.target));
+    const newTask = {...formData, timestamp: false, id: v4()};
+    setColumns({
+      ...columns,
+      todo: {...columns.todo, items: [...columns.todo.items, newTask]},
+    });
+    setShowModal(false);
+  }
+  function setTimeStamp(taskToChange, column, time) {
+    console.log(taskToChange, column, time);
+    const newItems = columns[column].items.map(task => {
+      if (task === taskToChange) {
+        return {...task, timestamp: time};
+      } else {
+        return task;
+      }
+    });
+    setColumns({
+      ...columns,
+      [column]: {...columns[column], items: newItems},
+    });
+  }
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showModal, setShowModal] = useState(false);
   return (
@@ -26,14 +85,15 @@ export default function Project({setPageState}) {
       <Header>
         <ChangeProject>
           <SelectProject name="id">
-            {projects.map(project => {
+            {/* {projects.map(project => {
               return (
-                <option key={project._id} value={project._id}>
+                <h1 key={project._id} value={project._id}>
                   {project.projectname}
-                </option>
+                </h1>
               );
-            })}
+            })} */}
           </SelectProject>
+          <h2>{allData.projectname}</h2>
           <MoveButton>
             <FaArrowAltCircleRight />
           </MoveButton>
@@ -44,19 +104,25 @@ export default function Project({setPageState}) {
       </Header>
       {showModal ? (
         <ModalContainer>
-          <Form action="" method="">
-            <Label for="pname">Projectname</Label>
-            <Input type="text" id="pname"></Input>
+          <Form onSubmit={event => handleNewTask(event)}>
+            <Label for="pname">Taskname</Label>
+            <Input name="Task" type="text" id="pname" required></Input>
             <Label for="description">Description</Label>
-            <DescriptionInput id="description"></DescriptionInput>
+            <DescriptionInput
+              name="description"
+              id="description"
+              required
+            ></DescriptionInput>
 
             <Label for="prio">Priority</Label>
             <PriorityContainer>
               <RadioContainer>
                 <RadioInputHigh
                   type="radio"
-                  name="prio"
+                  name="priority"
                   id="prioHigh"
+                  value="High Priority"
+                  required
                 ></RadioInputHigh>
                 <LabelRadio for="prioHigh">
                   High
@@ -67,8 +133,9 @@ export default function Project({setPageState}) {
               <RadioContainer>
                 <RadioInputMid
                   type="radio"
-                  name="prio"
+                  name="priority"
                   id="prioMid"
+                  value="Mid Priority"
                 ></RadioInputMid>
                 <LabelRadio for="prioMid">
                   Mid <br />
@@ -78,8 +145,9 @@ export default function Project({setPageState}) {
               <RadioContainer>
                 <RadioInputLow
                   type="radio"
-                  name="prio"
+                  name="priority"
                   id="prioLow"
+                  value="Low Priority"
                 ></RadioInputLow>
                 <LabelRadio for="prioLow">
                   Low
@@ -88,16 +156,20 @@ export default function Project({setPageState}) {
                 </LabelRadio>
               </RadioContainer>
             </PriorityContainer>
+            <AddTaskButton type="submit">Add Task</AddTaskButton>
           </Form>
           <CloseButton onClick={() => setShowModal(false)}>
             <FaRegWindowClose />
           </CloseButton>
-
-          <AddTaskButton>Add Task</AddTaskButton>
         </ModalContainer>
       ) : null}
 
-      <Kanban projectid={projectid} />
+      <Kanban
+        columns={columns}
+        setColumns={setColumns}
+        deleteTask={deleteTask}
+        setTimeStamp={setTimeStamp}
+      />
     </MainPage>
   );
 }

@@ -1,53 +1,9 @@
-import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import TaskCard from "./TaskCard";
 
-const Kanban = ({projectid}) => {
-  const [columns, setColumns] = useState([]);
-  const [timeOutReset, setTimeOutReset] = useState(false);
-  const [allData, setAllData] = useState(false);
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(`/api/projects/${projectid}`);
-      const data = await response.json();
-      setAllData(data);
-
-      setColumns(data.columns);
-    }
-    fetchData();
-  }, []);
-  useEffect(() => {
-    if (allData) {
-      clearTimeout(timeOutReset);
-      setTimeOutReset(setTimeout(pushData, 2000));
-    }
-    async function pushData() {
-      await fetch("/api/projects", {
-        method: "PUT",
-        body: JSON.stringify({
-          projectname: allData.projectname,
-          columns: columns,
-        }),
-        headers: {"Content-Type": "application/json"},
-      });
-    }
-  }, [columns]);
-  function deleteTask(columnId, card) {
-    const newItems = columns[columnId].items.filter(task => task !== card);
-
-    setColumns({
-      ...columns,
-      [columnId]: {...columns[columnId], items: newItems},
-    });
-    //   Object.entries(columns).map(([, value]) => {
-    //     return value.items.filter(task => task !== card);
-    //   })
-    // );
-  }
-  //const [tasks, setTasks] = useState([]);
-
+const Kanban = ({columns, setColumns, deleteTask, setTimeStamp}) => {
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const {source, destination} = result;
@@ -111,6 +67,7 @@ const Kanban = ({projectid}) => {
                           key={index}
                           item={item}
                           index={index}
+                          setTimeStamp={setTimeStamp}
                         />
                       ))}
                       {provided.placeholder}
