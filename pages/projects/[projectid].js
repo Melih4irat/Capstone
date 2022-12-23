@@ -9,7 +9,7 @@ export default function Project({setPageState}) {
   const router = useRouter();
   const {projectid} = router.query;
 
-  const [columns, setColumns] = useState([]);
+  const [columns, setColumns] = useState(null);
   const [timeOutReset, setTimeOutReset] = useState(false);
   const [allData, setAllData] = useState(false);
 
@@ -19,14 +19,25 @@ export default function Project({setPageState}) {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/projects/${projectid}`);
-      const data = await response.json();
-      setAllData(data);
+      try {
+        const response = await fetch(`/api/projects/${projectid}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAllData(data);
+          setColumns(data.columns);
+        } else {
+          throw new Error(`fetch failed with status ${response.status}`);
+        }
+      } catch (error) {
+        alert(error);
+      }
 
-      setColumns(data.columns);
+      console.log(window.location.href);
     }
-    fetchData();
-  }, []);
+    if (projectid) {
+      fetchData();
+    }
+  }, [projectid]);
 
   useEffect(() => {
     if (allData) {
@@ -64,19 +75,33 @@ export default function Project({setPageState}) {
     });
     setShowModal(false);
   }
-  function setTimeStamp(taskToChange, column, time) {
-    console.log(taskToChange, column, time);
-    const newItems = columns[column].items.map(task => {
-      if (task === taskToChange) {
-        return {...task, timestamp: time};
-      } else {
-        return task;
-      }
-    });
-    setColumns({
-      ...columns,
-      [column]: {...columns[column], items: newItems},
-    });
+  function setTimeStamp(taskToChange, column, time, elapsedTime) {
+    console.log(time, elapsedTime);
+    if (elapsedTime) {
+      const newItems = columns[column].items.map(task => {
+        if (task === taskToChange) {
+          return {...task, timestamp: time, elapsedtime: elapsedTime};
+        } else {
+          return task;
+        }
+      });
+      setColumns({
+        ...columns,
+        [column]: {...columns[column], items: newItems},
+      });
+    } else {
+      const newItems = columns[column].items.map(task => {
+        if (task === taskToChange) {
+          return {...task, timestamp: time};
+        } else {
+          return task;
+        }
+      });
+      setColumns({
+        ...columns,
+        [column]: {...columns[column], items: newItems},
+      });
+    }
   }
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showModal, setShowModal] = useState(false);
@@ -164,12 +189,14 @@ export default function Project({setPageState}) {
         </ModalContainer>
       ) : null}
 
-      <Kanban
-        columns={columns}
-        setColumns={setColumns}
-        deleteTask={deleteTask}
-        setTimeStamp={setTimeStamp}
-      />
+      {columns && (
+        <Kanban
+          columns={columns}
+          setColumns={setColumns}
+          deleteTask={deleteTask}
+          setTimeStamp={setTimeStamp}
+        />
+      )}
     </MainPage>
   );
 }

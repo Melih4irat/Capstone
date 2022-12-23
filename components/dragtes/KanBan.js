@@ -45,38 +45,39 @@ const Kanban = ({columns, setColumns, deleteTask, setTimeStamp}) => {
     >
       <Container>
         <TaskColumnStyles>
-          {Object.entries(columns).map(([columnId, column]) => {
-            return (
-              <Droppable
-                key={`column${columnId}`}
-                droppableId={String(columnId)}
-                direction="horizontal"
-              >
-                {provided => (
-                  <ListContainer>
-                    <Title>{column.title}</Title>
+          {columns &&
+            Object.entries(columns).map(([columnId, column]) => {
+              return (
+                <Droppable
+                  key={`column${columnId}`}
+                  droppableId={String(columnId)}
+                  direction="horizontal"
+                >
+                  {provided => (
+                    <ListContainer>
+                      <Title>{column.title}</Title>
 
-                    <TaskList
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                    >
-                      {column?.items?.map((item, index) => (
-                        <TaskCard
-                          columnId={columnId}
-                          deleteTask={deleteTask}
-                          key={index}
-                          item={item}
-                          index={index}
-                          setTimeStamp={setTimeStamp}
-                        />
-                      ))}
-                      {provided.placeholder}
-                    </TaskList>
-                  </ListContainer>
-                )}
-              </Droppable>
-            );
-          })}
+                      <TaskList
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                      >
+                        {column?.items?.map((item, index) => (
+                          <TaskCard
+                            columnId={columnId}
+                            deleteTask={deleteTask}
+                            key={index}
+                            item={item}
+                            index={index}
+                            setTimeStamp={setTimeStamp}
+                          />
+                        ))}
+                        {provided.placeholder}
+                      </TaskList>
+                    </ListContainer>
+                  )}
+                </Droppable>
+              );
+            })}
         </TaskColumnStyles>
       </Container>
     </DragDropContext>

@@ -11,6 +11,9 @@ const ProjectSchema = new mongoose.Schema({
     type: Object,
     required: true,
   },
+  id: {
+    type: mongoose.Types.ObjectId,
+  },
 });
 
 // This is important in serverless environments: Check if the model exists and otherwise create a new one.

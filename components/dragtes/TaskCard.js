@@ -4,8 +4,16 @@ import styled from "styled-components";
 import {FaTrashAlt, FaPlayCircle, FaStopCircle} from "react-icons/fa";
 
 const TaskCard = ({item, index, deleteTask, columnId, setTimeStamp}) => {
-  const [displayTime, setDisplayTime] = useState(false);
-  const [startTime, setStartTime] = useState(0);
+  const [displayTime, setDisplayTime] = useState(
+    item.elapsedtime
+      ? new Date(item.elapsedtime - 3600000).toLocaleTimeString("de-DE", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        })
+      : "00:00:00"
+  );
+  const [elapsedTime, setElapsedTime] = useState(0);
   // function startTimer() {
   //   // let startTime = item.timestamp;
 
@@ -24,15 +32,16 @@ const TaskCard = ({item, index, deleteTask, columnId, setTimeStamp}) => {
   // console.log(Date.now() - item.timestamp);
   function calculateTime() {
     let ms2 = Date.now();
-    let ms = ms2 - item.timestamp - 3600000;
-    let date = new Date(ms);
+    let msElapsed = item.elapsedtime ? item.elapsedtime : 0;
+    let ms = ms2 - item.timestamp + msElapsed;
+    let date = new Date(ms - 3600000);
     let time = date.toLocaleTimeString("de-DE", {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
     });
     setDisplayTime(time);
-    console.log(time);
+    setElapsedTime(ms);
   }
   useEffect(() => {
     if (item.timestamp) {
@@ -56,22 +65,24 @@ const TaskCard = ({item, index, deleteTask, columnId, setTimeStamp}) => {
 
               {item.timestamp ? (
                 <StoppButton
-                  onClick={() => setTimeStamp(item, columnId, false)}
+                  onClick={() =>
+                    setTimeStamp(item, columnId, false, elapsedTime)
+                  }
                 >
                   <FaStopCircle />
                 </StoppButton>
               ) : (
                 <StartButton
                   onClick={() => {
-                    setDisplayTime(false);
-                    setTimeStamp(item, columnId, Date.now());
+                    setDisplayTime("starting...");
+                    setTimeStamp(item, columnId, Date.now(), false);
                   }}
                 >
-                  <FaPlayCircle />{" "}
+                  <FaPlayCircle />
                 </StartButton>
               )}
 
-              <Time>{displayTime ? displayTime : "00:00:00"}</Time>
+              <Time>{displayTime}</Time>
             </MaxTime>
             <DeleteTask onClick={() => deleteTask(columnId, item)}>
               <FaTrashAlt />
@@ -104,7 +115,7 @@ const TaskInformation = styled.div`
   padding: 10px 10px;
   height: 130px;
   border-radius: 5px;
-  width: 200px;
+  width: 220px;
   background: rgba(255, 255, 255, 0.2);
   padding-bottom: 30px;
   position: relative;
