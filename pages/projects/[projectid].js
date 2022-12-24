@@ -1,62 +1,140 @@
 import Kanban from "../../components/dragtes/KanBan";
 import styled from "styled-components";
 import {useState, useEffect} from "react";
-import {FaRegWindowClose, FaArrowAltCircleRight} from "react-icons/fa";
+import {FaRegWindowClose} from "react-icons/fa";
 import {useRouter} from "next/router";
+import {v4} from "uuid";
 
 export default function Project({setPageState}) {
-  const [projects, setProjects] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("/api/projects");
-      const data = await response.json();
-      setProjects(data);
-    }
-    fetchData();
-
-    setPageState("projects");
-  }, []);
   const router = useRouter();
   const {projectid} = router.query;
 
+  const [columns, setColumns] = useState(null);
+  const [timeOutReset, setTimeOutReset] = useState(false);
+  const [allData, setAllData] = useState(false);
+
+  useEffect(() => {
+    setPageState("projects");
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(`/api/projects/${projectid}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAllData(data);
+          setColumns(data.columns);
+        } else {
+          throw new Error(`fetch failed with status ${response.status}`);
+        }
+      } catch (error) {
+        alert(error);
+      }
+
+      console.log(window.location.href);
+    }
+    if (projectid) {
+      fetchData();
+    }
+  }, [projectid]);
+
+  useEffect(() => {
+    if (allData) {
+      clearTimeout(timeOutReset);
+      setTimeOutReset(setTimeout(pushData, 2000));
+    }
+    async function pushData() {
+      await fetch("/api/projects", {
+        method: "PUT",
+        body: JSON.stringify({
+          projectname: allData.projectname,
+          columns: columns,
+        }),
+        headers: {"Content-Type": "application/json"},
+      });
+    }
+  }, [columns]);
+
+  function deleteTask(columnId, card) {
+    const newItems = columns[columnId].items.filter(task => task !== card);
+
+    setColumns({
+      ...columns,
+      [columnId]: {...columns[columnId], items: newItems},
+    });
+  }
+
+  function handleNewTask(event) {
+    event.preventDefault();
+    const formData = Object.fromEntries(new FormData(event.target));
+    const newTask = {...formData, timestamp: false, id: v4()};
+    setColumns({
+      ...columns,
+      todo: {...columns.todo, items: [...columns.todo.items, newTask]},
+    });
+    setShowModal(false);
+  }
+  function setTimeStamp(taskToChange, column, time, elapsedTime) {
+    console.log(time, elapsedTime);
+    if (elapsedTime) {
+      const newItems = columns[column].items.map(task => {
+        if (task === taskToChange) {
+          return {...task, timestamp: time, elapsedtime: elapsedTime};
+        } else {
+          return task;
+        }
+      });
+      setColumns({
+        ...columns,
+        [column]: {...columns[column], items: newItems},
+      });
+    } else {
+      const newItems = columns[column].items.map(task => {
+        if (task === taskToChange) {
+          return {...task, timestamp: time};
+        } else {
+          return task;
+        }
+      });
+      setColumns({
+        ...columns,
+        [column]: {...columns[column], items: newItems},
+      });
+    }
+  }
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showModal, setShowModal] = useState(false);
   return (
     <MainPage className="App">
       <Header>
-        <ChangeProject>
-          <SelectProject name="id">
-            {projects.map(project => {
-              return (
-                <option key={project._id} value={project._id}>
-                  {project.projectname}
-                </option>
-              );
-            })}
-          </SelectProject>
-          <MoveButton>
-            <FaArrowAltCircleRight />
-          </MoveButton>
-        </ChangeProject>
+        <HeadingOne>{allData.projectname}</HeadingOne>
+
         <AddTaskButton onClick={() => setShowModal(true)}>
           Add Task+
         </AddTaskButton>
       </Header>
       {showModal ? (
         <ModalContainer>
-          <Form action="" method="">
-            <Label for="pname">Projectname</Label>
-            <Input type="text" id="pname"></Input>
+          <Form onSubmit={event => handleNewTask(event)}>
+            <Label for="pname">Taskname</Label>
+            <Input name="Task" type="text" id="pname" required></Input>
             <Label for="description">Description</Label>
-            <DescriptionInput id="description"></DescriptionInput>
+            <DescriptionInput
+              name="description"
+              id="description"
+              required
+            ></DescriptionInput>
 
             <Label for="prio">Priority</Label>
             <PriorityContainer>
               <RadioContainer>
                 <RadioInputHigh
                   type="radio"
-                  name="prio"
+                  name="priority"
                   id="prioHigh"
+                  value="High Priority"
+                  required
                 ></RadioInputHigh>
                 <LabelRadio for="prioHigh">
                   High
@@ -67,8 +145,9 @@ export default function Project({setPageState}) {
               <RadioContainer>
                 <RadioInputMid
                   type="radio"
-                  name="prio"
+                  name="priority"
                   id="prioMid"
+                  value="Mid Priority"
                 ></RadioInputMid>
                 <LabelRadio for="prioMid">
                   Mid <br />
@@ -78,8 +157,9 @@ export default function Project({setPageState}) {
               <RadioContainer>
                 <RadioInputLow
                   type="radio"
-                  name="prio"
+                  name="priority"
                   id="prioLow"
+                  value="Low Priority"
                 ></RadioInputLow>
                 <LabelRadio for="prioLow">
                   Low
@@ -88,16 +168,22 @@ export default function Project({setPageState}) {
                 </LabelRadio>
               </RadioContainer>
             </PriorityContainer>
+            <AddTaskButton type="submit">Add Task</AddTaskButton>
           </Form>
           <CloseButton onClick={() => setShowModal(false)}>
             <FaRegWindowClose />
           </CloseButton>
-
-          <AddTaskButton>Add Task</AddTaskButton>
         </ModalContainer>
       ) : null}
 
-      <Kanban projectid={projectid} />
+      {columns && (
+        <Kanban
+          columns={columns}
+          setColumns={setColumns}
+          deleteTask={deleteTask}
+          setTimeStamp={setTimeStamp}
+        />
+      )}
     </MainPage>
   );
 }
@@ -130,32 +216,11 @@ const Header = styled.header`
   border: 1px solid rgba(255, 255, 255, 0.3);
   margin-bottom: 10px;
 `;
-const ChangeProject = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const SelectProject = styled.select`
-  border: none;
-  background-color: transparent;
+const HeadingOne = styled.h1`
+  margin: 0;
+  color: #fff;
   font-size: 1.5rem;
-  color: white;
-  font-weight: bold;
-`;
-const MoveButton = styled.button`
-  font-size: 1rem;
-  border-radius: 10px;
-  background: rgba(0, 255, 0, 0.3);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  margin: 5px 5px;
-  color: white;
-  height: 40px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 `;
 const AddTaskButton = styled.button`
   width: 100px;

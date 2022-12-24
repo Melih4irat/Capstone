@@ -46,4 +46,5 @@ const HeadingOne = styled.h1`
   margin: 0;
   color: #fff;
   font-size: 1.5rem;
+  text-align: center;
 `;

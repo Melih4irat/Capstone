@@ -1,43 +1,9 @@
-import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import TaskCard from "./TaskCard";
 
-const Kanban = ({projectid}) => {
-  const [columns, setColumns] = useState([]);
-  const [timeOutReset, setTimeOutReset] = useState(false);
-  const [allData, setAllData] = useState(false);
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(`/api/projects/${projectid}`);
-      const data = await response.json();
-      setAllData(data);
-      console.log(data);
-      setColumns(data.columns);
-    }
-    fetchData();
-  }, []);
-  useEffect(() => {
-    if (allData) {
-      clearTimeout(timeOutReset);
-      setTimeOutReset(setTimeout(pushData, 2000));
-    }
-    async function pushData() {
-      const response = await fetch("/api/projects", {
-        method: "PUT",
-        body: JSON.stringify({
-          projectname: allData.projectname,
-          columns: columns,
-        }),
-        headers: {"Content-Type": "application/json"},
-      });
-      console.log(response);
-    }
-  }, [columns]);
-
-  //const [tasks, setTasks] = useState([]);
-
+const Kanban = ({columns, setColumns, deleteTask, setTimeStamp}) => {
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const {source, destination} = result;
@@ -79,30 +45,39 @@ const Kanban = ({projectid}) => {
     >
       <Container>
         <TaskColumnStyles>
-          {Object.entries(columns).map(([columnId, column]) => {
-            return (
-              <Droppable
-                key={`column${columnId}`}
-                droppableId={String(columnId)}
-              >
-                {provided => (
-                  <ListContainer>
-                    <Title>{column.title}</Title>
+          {columns &&
+            Object.entries(columns).map(([columnId, column]) => {
+              return (
+                <Droppable
+                  key={`column${columnId}`}
+                  droppableId={String(columnId)}
+                  direction="horizontal"
+                >
+                  {provided => (
+                    <ListContainer>
+                      <Title>{column.title}</Title>
 
-                    <TaskList
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                    >
-                      {column.items.map((item, index) => (
-                        <TaskCard key={index} item={item} index={index} />
-                      ))}
-                      {provided.placeholder}
-                    </TaskList>
-                  </ListContainer>
-                )}
-              </Droppable>
-            );
-          })}
+                      <TaskList
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                      >
+                        {column?.items?.map((item, index) => (
+                          <TaskCard
+                            columnId={columnId}
+                            deleteTask={deleteTask}
+                            key={index}
+                            item={item}
+                            index={index}
+                            setTimeStamp={setTimeStamp}
+                          />
+                        ))}
+                        {provided.placeholder}
+                      </TaskList>
+                    </ListContainer>
+                  )}
+                </Droppable>
+              );
+            })}
         </TaskColumnStyles>
       </Container>
     </DragDropContext>
@@ -142,10 +117,12 @@ const TaskColumnStyles = styled.div`
   align-items: center;
 `;
 
-const Title = styled.span`
+const Title = styled.h3`
   color: #fff;
 
-  padding: 2px 10px;
+  padding: 2px 15px;
+  margin: 0;
+  margin-bottom: 5px;
 
   align-self: flex-start;
   font-size: 1.3rem;

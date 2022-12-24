@@ -57,7 +57,6 @@ export function CardGrid() {
   return (
     <GridContainer>
       {projects.map(({_id, projectname, columns}) => {
-        console.log(columns);
         return (
           <CardLink key={_id} href={`/projects/${_id}`}>
             <ProjectCard columns={columns} projectname={projectname} />

@@ -8,26 +8,26 @@
           {
             "id": "0",
             "Task": "Wireframing",
-            "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+            "description": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "1",
-            "Task": "Wireframing",
+            "Task": "Design",
             "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "2",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+
+            "priority": "High Priority",
+            "timestamp": false
           }
         ]
       },
@@ -38,25 +38,25 @@
             "id": "3",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "4",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "5",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+
+            "priority": "High Priority",
+            "timestamp": false
           }
         ]
       },
@@ -68,25 +68,25 @@
             "id": "6",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "7",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+
+            "priority": "High Priority",
+            "timestamp": false
           },
           {
             "id": "8",
             "Task": "Wireframing",
             "description": "lorem ipsum...",
-            "enddate": "10.01.2023",
-            "priority": "high priority",
-            "time": "00:00:00"
+
+            "priority": "High Priority",
+            "timestamp": false
           }
         ]
       }

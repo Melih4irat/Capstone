@@ -6,6 +6,7 @@ async function handler(req, res) {
     case "GET":
       try {
         const project = await Project.findById(req.query.projectid);
+        console.log(req.query.projectid);
         if (project) {
           return res.status(200).json(project);
         } else {
