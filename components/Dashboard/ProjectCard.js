@@ -1,10 +1,14 @@
 import styled from "styled-components";
-export function ProjectCard() {
+export function ProjectCard(projects) {
   return (
     <CardContainer>
       <HeadingTwo>Projects</HeadingTwo>
       <ParamCircle>
-        <ParamHeadingThree></ParamHeadingThree>
+        <ParamHeadingThree>
+          {projects?.columns?.todo?.items?.length +
+            projects?.columns?.wip?.items?.length +
+            projects?.columns?.done?.items?.length}
+        </ParamHeadingThree>
       </ParamCircle>
     </CardContainer>
   );
@@ -19,7 +23,7 @@ const CardContainer = styled.div`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  postion: relative;
+  position: relative;
   margin: 2.5%;
 `;
 

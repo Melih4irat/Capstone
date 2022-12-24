@@ -117,10 +117,12 @@ const TaskColumnStyles = styled.div`
   align-items: center;
 `;
 
-const Title = styled.span`
+const Title = styled.h3`
   color: #fff;
 
-  padding: 2px 10px;
+  padding: 2px 15px;
+  margin: 0;
+  margin-bottom: 5px;
 
   align-self: flex-start;
   font-size: 1.3rem;
