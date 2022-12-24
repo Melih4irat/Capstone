@@ -1,7 +1,7 @@
 import Kanban from "../../components/dragtes/KanBan";
 import styled from "styled-components";
 import {useState, useEffect} from "react";
-import {FaRegWindowClose, FaArrowAltCircleRight} from "react-icons/fa";
+import {FaRegWindowClose} from "react-icons/fa";
 import {useRouter} from "next/router";
 import {v4} from "uuid";
 
