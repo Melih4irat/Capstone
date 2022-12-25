@@ -23,10 +23,10 @@ export default function Navigation({pageState, setPageState}) {
           </Link>
         </NavItem>
         <NavItem>
-          <Link href="/calendar">
+          <Link href="/meetings">
             <Calendar
               pageState={pageState}
-              onClick={() => setPageState("calendar")}
+              onClick={() => setPageState("meetings")}
             />
           </Link>
         </NavItem>
@@ -112,7 +112,7 @@ const Calendar = styled(FaCalendarAlt)`
   color: black;
   font-size: 1.2rem;
   ${props =>
-    props.pageState === "calendar"
+    props.pageState === "meetings"
       ? "background-color: rgba(255,165,0, 0.9); color:white; border: 1px solid rgba(255,165,255, 1.0);"
       : " "};
 `;
