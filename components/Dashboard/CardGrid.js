@@ -1,9 +1,5 @@
 import styled from "styled-components";
-// import {DoneTaskCard} from "./DoneTaskCard";
-// import {ProjectCard} from "./ProjectCard";
-// import {TaskToFinishCard} from "./TaskToFinischCard";
-// import {ToDoTaskCard} from "./ToDoTaskCard";
-// import {WiPCard} from "./WiPCard";
+import AnalogClock from "analog-clock-react";
 import {useState, useEffect} from "react";
 
 export function CardGrid() {
@@ -46,9 +42,43 @@ export function CardGrid() {
     }, 0);
   }
   const totalNumberOfToDo = getTotalNumberOfToDo(projects);
+  let options = {
+    useCustomTime: false,
+    width: "80px",
+    border: false,
+    borderColor: "#b3b2b2",
+    baseColor: "#ffffff",
+    centerColor: "#fcfcfc",
+    centerBorderColor: "#000000",
+    handColors: {
+      second: "#d81c7a",
+      minute: "#000000",
+      hour: "#000000",
+    },
+  };
+  let today = new Date();
+
+  let dateOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  dateOptions.timeZone = "UTC";
+
+  let now = today.toLocaleString("de-DE", dateOptions);
 
   return (
     <GridContainer>
+      <InfoTaskCard>
+        <LeftContainer>
+          <Greetings>Hi, User !</Greetings>
+          <Dates>Heute ist {now}</Dates>
+        </LeftContainer>
+        <ClockContainer>
+          <AnalogClock {...options} />
+        </ClockContainer>
+      </InfoTaskCard>
       <DoneTaskCard>
         <ContainerHeadingTwo>Done Tasks</ContainerHeadingTwo>
         <DoneParamCircle>
@@ -93,6 +123,44 @@ const GridContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
 `;
+const InfoTaskCard = styled.div`
+  width: 100%;
+  height: 100px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  margin: 2.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const LeftContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 5%;
+  width: 50%;
+`;
+const Greetings = styled.h2`
+  font-size: 1.7rem;
+  color: #fff;
+  margin: 0;
+`;
+const Dates = styled.span`
+  color: #fff;
+  font-size: 0.8rem;
+`;
+const ClockContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5%;
+`;
 const DoneTaskCard = styled.div`
   width: 100%;
   height: 100px;
@@ -120,7 +188,7 @@ const ToDoTaskCard = styled.div`
   display: flex;
 `;
 const ProjectCard = styled.div`
-  width: 100%;
+  width: 45%;
   height: 100px;
   border-radius: 15px;
   background: rgba(255, 255, 255, 0.2);
@@ -133,7 +201,7 @@ const ProjectCard = styled.div`
   display: flex;
 `;
 const MeetingCard = styled.div`
-  width: 100%;
+  width: 45%;
   height: 100px;
   border-radius: 15px;
   background: rgba(255, 255, 255, 0.2);
@@ -159,6 +227,7 @@ const WiPCard = styled.div`
   margin: 2.5%;
   display: flex;
 `;
+
 const ContainerHeadingTwo = styled.h2`
   font-size: 1rem;
   color: #000;
@@ -169,30 +238,32 @@ const ContainerHeadingTwo = styled.h2`
   border-radius: 8px;
 `;
 const ParamCircle = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 30px;
   background-color: orange;
+  opacity: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 12%;
+  right: 8%;
 `;
 const DoneParamCircle = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 30px;
   background-color: green;
+  opacity: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 12%;
+  right: 4%;
 `;
 const ContainerHeadingThree = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: #fff;
 `;

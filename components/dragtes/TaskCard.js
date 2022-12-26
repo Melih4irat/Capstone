@@ -100,7 +100,7 @@ const TaskInformation = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 10px 10px;
-  height: 130px;
+  height: 100%;
   border-radius: 5px;
   width: 220px;
   background: rgba(255, 255, 255, 0.2);

@@ -100,7 +100,7 @@ const ListContainer = styled.div`
 const TaskList = styled.div`
   display: flex;
   width: auto;
-  height: auto;
+  height: 150px;
   position: relative;
   border-radius: 5px;
   padding-bottom: 10px;

@@ -64,10 +64,10 @@ export function CardGrid() {
         );
       })}
       <AddProjectButton onClick={() => setShowModal(true)}>
-        Add Projekt +
+        Add Projekt
       </AddProjectButton>
       <DeleteProjectButton onClick={() => setShowSecondModal(true)}>
-        Delete Projekt -
+        Delete Projekt
       </DeleteProjectButton>
       {showModal ? (
         <ModalContainer>

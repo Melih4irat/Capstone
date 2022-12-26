@@ -70,10 +70,10 @@ export function CardGrid() {
       })}
 
       <AddMeetingButton onClick={() => setShowModal(true)}>
-        Add Meeting +
+        Add Meeting
       </AddMeetingButton>
       <DeleteMeetingButton onClick={() => setShowSecondModal(true)}>
-        Delete Meeting -
+        Delete Meeting
       </DeleteMeetingButton>
       {showModal ? (
         <ModalContainer>

@@ -111,7 +111,7 @@ export default function Project({setPageState}) {
         <HeadingOne>{allData.projectname}</HeadingOne>
 
         <AddTaskButton onClick={() => setShowModal(true)}>
-          Add Task+
+          Add Task
         </AddTaskButton>
       </Header>
       {showModal ? (

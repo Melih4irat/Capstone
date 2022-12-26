@@ -3,6 +3,7 @@ export function ProjectCard({projectname, columns}) {
   return (
     <CardContainer>
       <HeadingTwo>{projectname}</HeadingTwo>
+
       <Container>
         <ParamInnerContainer>
           <HeadingThree>Tasks</HeadingThree>
@@ -69,6 +70,7 @@ const ParamCircle = styled.div`
   height: 25px;
   border-radius: 30px;
   background-color: orange;
+  opacity: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,6 +80,7 @@ const ParamCircleDone = styled.div`
   height: 25px;
   border-radius: 30px;
   background-color: green;
+  opacity: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
