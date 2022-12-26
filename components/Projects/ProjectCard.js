@@ -34,7 +34,7 @@ const CardContainer = styled.article`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 
   display: flex;
   justify-content: space-between;
@@ -42,8 +42,12 @@ const CardContainer = styled.article`
 `;
 const HeadingTwo = styled.h2`
   font-size: 1rem;
-  color: #fff;
+  color: #000;
   margin-left: 15px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 7px;
+  height: 40%;
+  padding: 5px;
 `;
 const Container = styled.div`
   display: flex;

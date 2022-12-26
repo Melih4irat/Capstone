@@ -27,7 +27,7 @@ const CardContainer = styled.article`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@ const HeadingTwo = styled.h2`
   font-size: 1rem;
   color: #000;
 
-  background-color: white;
+  background: rgba(255, 255, 255, 0.7);
   padding: 5px;
   border-radius: 5px;
   margin: 0;
@@ -73,7 +73,7 @@ const DateContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  background-color: white;
+  background: rgba(255, 255, 255, 0.7);
   padding: 5px 7px;
   border-radius: 5px; ;
 `;
