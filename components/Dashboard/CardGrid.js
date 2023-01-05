@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {FaPaste} from "react-icons/fa";
 import AnalogClock from "analog-clock-react";
 import {useState, useEffect} from "react";
 
@@ -79,26 +80,40 @@ export function CardGrid() {
           <AnalogClock {...options} />
         </ClockContainer>
       </InfoTaskCard>
+
       <DoneTaskCard>
-        <ContainerHeadingTwo>Done Tasks</ContainerHeadingTwo>
-        <DoneParamCircle>
-          <ContainerHeadingThree>{totalNumberOfDone}</ContainerHeadingThree>
-        </DoneParamCircle>
+        <div className="header">
+          <ContainerHeadingTwo>
+            <FaPaste className="iconstyle" />
+            Done Tasks
+          </ContainerHeadingTwo>
+        </div>
+        <div className="footer">
+          <DoneParamCircle>
+            <ContainerHeadingThree>{totalNumberOfDone}</ContainerHeadingThree>
+          </DoneParamCircle>
+        </div>
       </DoneTaskCard>
       <ToDoTaskCard>
-        <ContainerHeadingTwo>To Do</ContainerHeadingTwo>
+        <div className="header">
+          <ContainerHeadingTwo>To Do</ContainerHeadingTwo>
+        </div>
         <ParamCircle>
           <ContainerHeadingThree>{totalNumberOfToDo}</ContainerHeadingThree>
         </ParamCircle>
       </ToDoTaskCard>
       <WiPCard>
-        <ContainerHeadingTwo>WiP</ContainerHeadingTwo>
+        <div className="header">
+          <ContainerHeadingTwo>WiP</ContainerHeadingTwo>
+        </div>
         <ParamCircle>
           <ContainerHeadingThree>{totalNumberOfWiP}</ContainerHeadingThree>
         </ParamCircle>
       </WiPCard>
       <ProjectCard>
-        <ContainerHeadingTwo>Projects</ContainerHeadingTwo>
+        <div className="header">
+          <ContainerHeadingTwo>Projects</ContainerHeadingTwo>
+        </div>
         <ParamCircle>
           <ContainerHeadingThree>
             {projects ? projects.length : "0"}
@@ -106,7 +121,9 @@ export function CardGrid() {
         </ParamCircle>
       </ProjectCard>
       <MeetingCard>
-        <ContainerHeadingTwo>Meetings</ContainerHeadingTwo>
+        <div className="header">
+          <ContainerHeadingTwo>Meetings</ContainerHeadingTwo>
+        </div>
         <ParamCircle>
           <ContainerHeadingThree>
             {meetings ? meetings.length : "0"}
@@ -148,12 +165,13 @@ const LeftContainer = styled.div`
 `;
 const Greetings = styled.h2`
   font-size: 1.7rem;
-  color: #fff;
+  color: #000;
   margin: 0;
 `;
 const Dates = styled.span`
-  color: #fff;
+  color: #000;
   font-size: 0.8rem;
+  width: 80%;
 `;
 const ClockContainer = styled.div`
   display: flex;
@@ -173,6 +191,15 @@ const DoneTaskCard = styled.div`
   position: relative;
   margin: 2.5%;
   display: flex;
+  .header {
+    height: 30%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 15px 15px 0 0;
+    padding: 8px;
+  }
 `;
 const ToDoTaskCard = styled.div`
   width: 45%;
@@ -186,6 +213,15 @@ const ToDoTaskCard = styled.div`
   position: relative;
   margin: 2.5%;
   display: flex;
+  .header {
+    height: 30%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 15px 15px 0 0;
+    padding: 8px;
+  }
 `;
 const ProjectCard = styled.div`
   width: 45%;
@@ -199,6 +235,15 @@ const ProjectCard = styled.div`
   position: relative;
   margin: 2.5%;
   display: flex;
+  .header {
+    height: 30%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 15px 15px 0 0;
+    padding: 8px;
+  }
 `;
 const MeetingCard = styled.div`
   width: 45%;
@@ -212,6 +257,15 @@ const MeetingCard = styled.div`
   position: relative;
   margin: 2.5%;
   display: flex;
+  .header {
+    height: 30%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 15px 15px 0 0;
+    padding: 8px;
+  }
 `;
 
 const WiPCard = styled.div`
@@ -226,16 +280,30 @@ const WiPCard = styled.div`
   position: relative;
   margin: 2.5%;
   display: flex;
+  .header {
+    height: 30%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 15px 15px 0 0;
+    padding: 8px;
+  }
 `;
 
 const ContainerHeadingTwo = styled.h2`
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #000;
-  margin-left: 15px;
-  background: rgba(255, 255, 255, 0.7);
+  margin: 0;
   padding: 5px;
-  height: 30%;
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  height: 15%;
+
+  .iconstyle {
+    margin-right: 5px;
+    color: #000;
+  }
 `;
 const ParamCircle = styled.div`
   width: 40px;

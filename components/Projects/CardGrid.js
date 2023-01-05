@@ -79,7 +79,7 @@ export function CardGrid() {
               <FaRegWindowClose />
             </CloseButton>
 
-            <AddProjectButton type="submit">Add Meeting</AddProjectButton>
+            <AddProjectButton type="submit">Add Project</AddProjectButton>
           </Form>
         </ModalContainer>
       ) : null}

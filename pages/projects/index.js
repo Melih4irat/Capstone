@@ -18,13 +18,9 @@ export default function Projects({setPageState}) {
 const MainPage = styled.main`
   width: 100vw;
   min-height: 100vh;
-  background-color: #4158d0;
-  background-image: linear-gradient(
-    43deg,
-    #4158d0 0%,
-    #c850c0 46%,
-    #ffcc70 100%
-  );
+  background-color: #f4d03f;
+  background-image: linear-gradient(132deg, #f4d03f 0%, #16a085 100%);
+
   display: flex;
   flex-direction: column;
   align-items: center;

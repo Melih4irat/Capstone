@@ -1,8 +1,13 @@
 import styled from "styled-components";
+import {FaPaste} from "react-icons/fa";
 export function ProjectCard({projectname, columns}) {
   return (
     <CardContainer>
-      <HeadingTwo>{projectname}</HeadingTwo>
+      <HeadingTwo>
+        <Icon />
+
+        {projectname}
+      </HeadingTwo>
 
       <Container>
         <ParamInnerContainer>
@@ -45,10 +50,15 @@ const HeadingTwo = styled.h2`
   font-size: 1rem;
   color: #000;
   margin-left: 15px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 7px;
-  height: 40%;
+  color: #fff;
   padding: 5px;
+  display: flex;
+  align-items: center;
+`;
+
+const Icon = styled(FaPaste)`
+  color: #fff;
+  margin-right: 5px;
 `;
 const Container = styled.div`
   display: flex;
