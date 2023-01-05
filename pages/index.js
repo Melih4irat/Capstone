@@ -34,7 +34,7 @@ const MainPage = styled.main`
   justify-content: center;
   align-items: center;
   .container {
-    width: 70%;
+    width: 300px;
     height: 60%;
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
@@ -44,9 +44,9 @@ const MainPage = styled.main`
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+
     align-items: center;
-    padding: 10% 0 10% 0;
+    padding-top: 2rem;
   }
   h1 {
     color: #003300;
