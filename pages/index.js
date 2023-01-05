@@ -46,7 +46,7 @@ const MainPage = styled.main`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 10%;
+    padding: 10% 0 10% 0;
   }
   h1 {
     color: #003300;
