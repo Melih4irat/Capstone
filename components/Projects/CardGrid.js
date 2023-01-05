@@ -27,7 +27,6 @@ export function CardGrid() {
         headers: {"Content-Type": "application/json"},
         method: "POST",
       });
-      alert("Project added!");
     } catch (error) {
       alert(error.message);
     }
@@ -97,7 +96,7 @@ export function CardGrid() {
               })}
             </SelectProject>
             <DeleteProjectButton type="submit">
-              Delete Meeting
+              Delete Project
             </DeleteProjectButton>
           </Form>
           <CloseButton onClick={() => setShowSecondModal(false)}>

@@ -109,7 +109,7 @@ export function CardGrid() {
               })}
             </SelectProject>
             <DeleteMeetingButton type="submit">
-              Delete Project
+              Delete Meeting
             </DeleteMeetingButton>
           </Form>
           <CloseButton onClick={() => setShowSecondModal(false)}>
