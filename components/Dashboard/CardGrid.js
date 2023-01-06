@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {FaPaste} from "react-icons/fa";
+
 import AnalogClock from "analog-clock-react";
 import {useState, useEffect} from "react";
 
@@ -83,10 +83,7 @@ export function CardGrid() {
 
       <DoneTaskCard>
         <div className="header">
-          <ContainerHeadingTwo>
-            <FaPaste className="iconstyle" />
-            Done Tasks
-          </ContainerHeadingTwo>
+          <ContainerHeadingTwo>Done Tasks</ContainerHeadingTwo>
         </div>
         <div className="footer">
           <DoneParamCircle>
@@ -299,11 +296,6 @@ const ContainerHeadingTwo = styled.h2`
   display: flex;
   align-items: center;
   height: 15%;
-
-  .iconstyle {
-    margin-right: 5px;
-    color: #000;
-  }
 `;
 const ParamCircle = styled.div`
   width: 40px;

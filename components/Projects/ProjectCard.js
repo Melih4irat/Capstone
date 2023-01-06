@@ -48,16 +48,19 @@ const CardContainer = styled.article`
 `;
 const HeadingTwo = styled.h2`
   font-size: 1rem;
-  color: #000;
+
   margin-left: 15px;
-  color: #fff;
+  color: #000;
   padding: 5px;
   display: flex;
   align-items: center;
+  .iconstyle {
+    margin-right: 5px;
+  }
 `;
 
 const Icon = styled(FaPaste)`
-  color: #fff;
+  color: #000;
   margin-right: 5px;
 `;
 const Container = styled.div`

@@ -39,8 +39,8 @@ const HeadingTwo = styled.h2`
   color: #000;
 
   background: rgba(255, 255, 255, 0.7);
-  padding: 5px;
-  border-radius: 5px;
+  padding: 5px 8px;
+  border-radius: 15px;
   margin: 0;
 `;
 const Description = styled.p`
@@ -75,7 +75,7 @@ const DateContainer = styled.div`
   align-items: flex-end;
   background: rgba(255, 255, 255, 0.7);
   padding: 5px 7px;
-  border-radius: 5px; ;
+  border-radius: 5px;
 `;
 const Date = styled.span`
   font-size: 0.8rem;

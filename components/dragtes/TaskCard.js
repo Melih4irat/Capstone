@@ -141,9 +141,9 @@ const Priority = styled.div`
 `;
 const Taskname = styled.h3`
   background: rgba(255, 255, 255, 0.7);
-  padding: 3px;
+  padding: 3px 8px;
   margin: 0 0 5px 0;
-  border-radius: 7px;
+  border-radius: 15px;
 `;
 
 const Description = styled.p`

@@ -26,7 +26,6 @@ export function CardGrid() {
         headers: {"Content-Type": "application/json"},
         method: "POST",
       });
-      alert("Meeting added!");
     } catch (error) {
       alert(error.message);
     }
