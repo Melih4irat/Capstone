@@ -59,10 +59,8 @@ const TaskCard = ({item, index, deleteTask, columnId, setTimeStamp}) => {
           <TaskInformation>
             <Taskname>{item.Task}</Taskname>
             <Description>{item.description}</Description>
-
+            <Priority>{item.priority}</Priority>
             <MaxTime>
-              <Priority>{item.priority}</Priority>
-
               {item.timestamp ? (
                 <StoppButton
                   onClick={() =>
@@ -87,17 +85,6 @@ const TaskCard = ({item, index, deleteTask, columnId, setTimeStamp}) => {
             <DeleteTask onClick={() => deleteTask(columnId, item)}>
               <FaTrashAlt />
             </DeleteTask>
-
-            {/* <div className="secondary-details"> */}
-            {/* <p> */}
-            {/* <span>
-                  {new Date(item.Due_Date).toLocaleDateString("en-us", {
-                    month: "short",
-                    day: "2-digit",
-                  })}
-                </span> */}
-            {/* </p> */}
-            {/* </div> */}
           </TaskInformation>
         </div>
       )}
@@ -113,7 +100,7 @@ const TaskInformation = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 10px 10px;
-  height: 130px;
+  height: 100%;
   border-radius: 5px;
   width: 220px;
   background: rgba(255, 255, 255, 0.2);
@@ -145,18 +132,26 @@ const Priority = styled.div`
   justify-content: center;
   align-items: center;
   color: #fff;
-  margin-right: 10px;
+  position: absolute;
+  bottom: 6px;
+  left: 10px;
   ${props =>
     props.children === "Mid Priority" && "background-color:yellow; color:#000;"}
   ${props => props.children === "Low Priority" && "background-color:green;"}
 `;
 const Taskname = styled.h3`
-  margin: 5px 0;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 3px 8px;
+  margin: 0 0 5px 0;
+  border-radius: 15px;
 `;
 
 const Description = styled.p`
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  color: #fff;
+
+  padding: 3px;
 `;
 const MaxTime = styled.div`
   position: absolute;
@@ -191,15 +186,18 @@ const StoppButton = styled.button`
 const DeleteTask = styled.button`
   position: absolute;
   top: 10px;
-  right: 5px;
-  background: none;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.7);
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   color: red;
+  padding: 5px;
+  border-radius: 5px;
 `;
 const Time = styled.span`
   font-size: 0.8rem;
+  color: #fff;
 `;

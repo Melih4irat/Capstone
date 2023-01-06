@@ -1,0 +1,20 @@
+[
+  {
+    "meeting": "Kunde1",
+    "date": "12.12.2022",
+    "time": "12:00",
+    "description": "Lorem Ipsum sit dolar amet."
+  },
+  {
+    "meeting": "Kunde2",
+    "date": "12.12.2022",
+    "time": "12:00",
+    "description": "Lorem Ipsum sit dolar amet."
+  },
+  {
+    "meeting": "Kunde3",
+    "date": "12.12.2022",
+    "time": "12:00",
+    "description": "Lorem Ipsum sit dolar amet."
+  }
+]

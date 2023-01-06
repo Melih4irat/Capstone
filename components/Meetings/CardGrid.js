@@ -1,28 +1,27 @@
+import {MeetingCard} from "./MeetingCard";
 import styled from "styled-components";
-import {ProjectCard} from "./ProjectCard";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {FaRegWindowClose} from "react-icons/fa";
-import Link from "next/link";
-
 export function CardGrid() {
+  const [meetings, setMeetings] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [reload, setReload] = useState(false);
   const [showSecondModal, setShowSecondModal] = useState(false);
-  const [projects, setProjects] = useState([]);
+  const [reload, setReload] = useState(false);
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/api/projects");
-      const data = await response.json();
-      setProjects(data);
+      const response = await fetch("/api/meetings");
+      let data = [];
+      data = await response.json();
+
+      setMeetings(data);
     }
     fetchData();
   }, [reload]);
-
-  async function handleAddProject(event) {
+  async function handleAddMeeting(event) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
     try {
-      await fetch("/api/projects", {
+      await fetch("/api/meetings", {
         body: JSON.stringify(data),
         headers: {"Content-Type": "application/json"},
         method: "POST",
@@ -34,16 +33,16 @@ export function CardGrid() {
     setShowModal(false);
     setReload(!reload);
   }
-  async function handleDeleteProject(event) {
+  async function handleDeleteMeeting(event) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
     try {
-      const response = await fetch("/api/projects", {
+      const response = await fetch("/api/meetings", {
         body: JSON.stringify(data),
         method: "DELETE",
       });
       if (response.ok) {
-        console.log("Project deleted!");
+        console.log("Meeting deleted!");
       } else {
         throw new Error(`Fetch fehlgeschlagen mit Status: ${response.status}`);
       }
@@ -53,51 +52,64 @@ export function CardGrid() {
     setShowSecondModal(false);
     setReload(!reload);
   }
+  console.log(meetings);
+
   return (
     <GridContainer>
-      {projects.map(({_id, projectname, columns}) => {
+      {meetings.map(meeting => {
         return (
-          <CardLink key={_id} href={`/projects/${_id}`}>
-            <ProjectCard columns={columns} projectname={projectname} />
-          </CardLink>
+          <MeetingCard
+            key={meeting._id}
+            meeting={meeting.meeting}
+            description={meeting.description}
+            date={meeting.date}
+            time={meeting.time}
+          />
         );
       })}
-      <AddProjectButton onClick={() => setShowModal(true)}>
-        Add Projekt
-      </AddProjectButton>
-      <DeleteProjectButton onClick={() => setShowSecondModal(true)}>
-        Delete Projekt
-      </DeleteProjectButton>
+
+      <AddMeetingButton onClick={() => setShowModal(true)}>
+        Add Meeting
+      </AddMeetingButton>
+      <DeleteMeetingButton onClick={() => setShowSecondModal(true)}>
+        Delete Meeting
+      </DeleteMeetingButton>
       {showModal ? (
         <ModalContainer>
-          <Form onSubmit={event => handleAddProject(event)}>
-            <Label for="pname">Projectname</Label>
-            <Input name="projectname" type="text" id="pname" required></Input>
+          <Form onSubmit={event => handleAddMeeting(event)}>
+            <Label for="mname">Titel</Label>
+            <Input name="meeting" type="text" id="mname" required></Input>
+            <Label for="dname">Description</Label>
+            <Input name="description" type="text" id="dname" required></Input>
+            <Label for="daname">Date</Label>
+            <Input name="date" type="date" id="daname" required></Input>
+            <Label for="tname">Time</Label>
+            <Input name="time" type="time" id="tname" required></Input>
 
             <CloseButton onClick={() => setShowModal(false)}>
               <FaRegWindowClose />
             </CloseButton>
 
-            <AddProjectButton type="submit">Add Project</AddProjectButton>
+            <AddMeetingButton type="submit">Add Meeting</AddMeetingButton>
           </Form>
         </ModalContainer>
       ) : null}
       {showSecondModal ? (
         <ModalContainer>
-          <Form onSubmit={event => handleDeleteProject(event)}>
+          <Form onSubmit={event => handleDeleteMeeting(event)}>
             <SelectProject name="id">
-              <option>--Project--</option>
-              {projects.map(project => {
+              <option>--Meeting--</option>
+              {meetings.map(meeting => {
                 return (
-                  <option key={project._id} value={project._id}>
-                    {project.projectname}
+                  <option key={meeting._id} value={meeting._id}>
+                    {meeting.meeting}
                   </option>
                 );
               })}
             </SelectProject>
-            <DeleteProjectButton type="submit">
-              Delete Project
-            </DeleteProjectButton>
+            <DeleteMeetingButton type="submit">
+              Delete Meeting
+            </DeleteMeetingButton>
           </Form>
           <CloseButton onClick={() => setShowSecondModal(false)}>
             <FaRegWindowClose />
@@ -107,14 +119,13 @@ export function CardGrid() {
     </GridContainer>
   );
 }
-
 const GridContainer = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
-const AddProjectButton = styled.button`
+const AddMeetingButton = styled.button`
   width: 150px;
   height: 40px;
   color: white;
@@ -128,7 +139,7 @@ const AddProjectButton = styled.button`
   border: 1px solid rgba(0, 255, 0, 0.3);
   margin: 5px 0;
 `;
-const DeleteProjectButton = styled.button`
+const DeleteMeetingButton = styled.button`
   width: 150px;
   height: 40px;
   font-size: 1rem;
@@ -196,9 +207,4 @@ const SelectProject = styled.select`
   border-radius: 10px;
   border: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-`;
-const CardLink = styled(Link)`
-  width: 100%;
-  text-decoration: none;
-  padding: 0;
 `;

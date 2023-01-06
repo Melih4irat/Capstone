@@ -1,8 +1,14 @@
 import styled from "styled-components";
+import {FaPaste} from "react-icons/fa";
 export function ProjectCard({projectname, columns}) {
   return (
     <CardContainer>
-      <HeadingTwo>{projectname}</HeadingTwo>
+      <HeadingTwo>
+        <Icon />
+
+        {projectname}
+      </HeadingTwo>
+
       <Container>
         <ParamInnerContainer>
           <HeadingThree>Tasks</HeadingThree>
@@ -34,7 +40,7 @@ const CardContainer = styled.article`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 
   display: flex;
   justify-content: space-between;
@@ -42,8 +48,20 @@ const CardContainer = styled.article`
 `;
 const HeadingTwo = styled.h2`
   font-size: 1rem;
-  color: #fff;
+
   margin-left: 15px;
+  color: #000;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  .iconstyle {
+    margin-right: 5px;
+  }
+`;
+
+const Icon = styled(FaPaste)`
+  color: #000;
+  margin-right: 5px;
 `;
 const Container = styled.div`
   display: flex;
@@ -65,6 +83,7 @@ const ParamCircle = styled.div`
   height: 25px;
   border-radius: 30px;
   background-color: orange;
+  opacity: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,6 +93,7 @@ const ParamCircleDone = styled.div`
   height: 25px;
   border-radius: 30px;
   background-color: green;
+  opacity: 80%;
   display: flex;
   justify-content: center;
   align-items: center;

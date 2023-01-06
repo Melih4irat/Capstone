@@ -1,15 +1,14 @@
 import {useEffect} from "react";
 import styled from "styled-components";
-import {CardGrid} from "../../components/Dashboard/CardGrid";
-
-export default function Dashboard({setPageState}) {
+import {CardGrid} from "../../components/Meetings/CardGrid";
+export default function Meetings({setPageState}) {
   useEffect(() => {
-    setPageState("dashboard");
+    setPageState("meetings");
   }, []);
   return (
     <MainPage>
       <Header>
-        <HeadingOne>Dashboard</HeadingOne>
+        <HeadingOne>Meetings</HeadingOne>
       </Header>
       <CardGrid />
     </MainPage>
@@ -18,13 +17,14 @@ export default function Dashboard({setPageState}) {
 
 const MainPage = styled.main`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f4d03f;
   background-image: linear-gradient(132deg, #f4d03f 0%, #16a085 100%);
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 20vh;
 `;
 const Header = styled.header`
   width: 100%;

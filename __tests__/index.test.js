@@ -1,13 +1,13 @@
 import {render, screen} from "@testing-library/react";
-import {ProjectCard} from "../components/Dashboard/ProjectCard";
+import Button from "../components/Button";
 import "@testing-library/jest-dom";
 
-describe("Home", () => {
-  it("renders text Login", () => {
-    render(<ProjectCard />);
+describe("Button", () => {
+  it("renders the button", () => {
+    render(<Button />);
 
-    const headline = screen.getByText(/Projects/i);
+    const button = screen.getByRole("button");
 
-    expect(headline).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
   });
 });

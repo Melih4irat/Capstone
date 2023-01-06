@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import {FaHome, FaClipboardList, FaCalendarAlt, FaUser} from "react-icons/fa";
+import {FaHome, FaClipboardList, FaCalendarAlt} from "react-icons/fa";
 
 export default function Navigation({pageState, setPageState}) {
   return (
@@ -23,28 +23,28 @@ export default function Navigation({pageState, setPageState}) {
           </Link>
         </NavItem>
         <NavItem>
-          <Link href="/calendar">
+          <Link href="/meetings">
             <Calendar
               pageState={pageState}
-              onClick={() => setPageState("calendar")}
+              onClick={() => setPageState("meetings")}
             />
           </Link>
         </NavItem>
-        <NavItem>
+        {/* <NavItem>
           <Link href="/profile">
             <Profile
               pageState={pageState}
               onClick={() => setPageState("profile")}
             />
           </Link>
-        </NavItem>
+        </NavItem> */}
       </NavList>
     </Navbar>
   );
 }
 
 const Navbar = styled.nav`
-  width: 80vw;
+  width: 60vw;
   height: 50px;
   border-radius: 50px;
   background: rgba(255, 255, 255, 0.2);
@@ -57,8 +57,8 @@ const Navbar = styled.nav`
 
   position: fixed;
   bottom: 30px;
-  right: 10%;
-  left: 10%;
+  right: 20%;
+  left: 20%;
   z-index: 1;
 
   display: flex;
@@ -112,18 +112,18 @@ const Calendar = styled(FaCalendarAlt)`
   color: black;
   font-size: 1.2rem;
   ${props =>
-    props.pageState === "calendar"
+    props.pageState === "meetings"
       ? "background-color: rgba(255,165,0, 0.9); color:white; border: 1px solid rgba(255,165,255, 1.0);"
       : " "};
 `;
-const Profile = styled(FaUser)`
-  border-radius: 50px;
-  padding: 22px;
-  box-sizing: content-box;
-  color: black;
-  font-size: 1.2rem;
-  ${props =>
-    props.pageState === "profile"
-      ? "background-color: rgba(255,165,0, 0.9); color:white; border: 1px solid rgba(255,165,255, 1.0);"
-      : " "};
-`;
+// const Profile = styled(FaUser)`
+//   border-radius: 50px;
+//   padding: 22px;
+//   box-sizing: content-box;
+//   color: black;
+//   font-size: 1.2rem;
+//   ${props =>
+//     props.pageState === "profile"
+//       ? "background-color: rgba(255,165,0, 0.9); color:white; border: 1px solid rgba(255,165,255, 1.0);"
+//       : " "};
+// `;
